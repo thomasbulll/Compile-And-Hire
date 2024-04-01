@@ -3,10 +3,14 @@
 import React from 'react'
 import Image from 'next/image';
 import CustomButton from './CustomButton';
+import { redirect } from 'next/navigation';
 
 const Hero = () => {
     const handleScroll = () => {
 
+    }
+    const handleNavigation = (str: string) => {
+        return redirect(str);
     }
   return (
     <div className="hero">
