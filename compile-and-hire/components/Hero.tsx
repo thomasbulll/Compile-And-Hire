@@ -17,12 +17,18 @@ const Hero = () => {
             <p className="hero__subtitle">
                 Discover opportunitues, build projects, and launch your career.
             </p>
-
+            <div className="flex space-x-2">
             <CustomButton
-                title="Sign Up"
-                containerStyles="bg-primary-blue text-white rounded-full mt-10"
+                title="Sign in"
+                containerStyles="bg-gray-100 text-black rounded-full mt-10 hover:bg-gray-200"
                 handleClick={handleScroll}
             />
+            <CustomButton
+                title="Sign Up"
+                containerStyles="bg-blue-600 text-white rounded-full mt-10 hover:bg-blue-700"
+                handleClick={handleScroll}
+            />
+            </div>
         </div>
         <div className='hero__image-container'>
             <div className='hero__image'>
