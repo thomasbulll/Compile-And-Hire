@@ -6,7 +6,7 @@ export default function NotFoundRoot() {
       <div className="space-y-4">
         <BugIcon className="h-24 w-24 text-blue-800" />
         <h1 className="text-4xl font-bold">
-          Oops!
+          Oops 404!
         </h1>
         <p className="text-lg text-gray-700">
           This page has left the building.
