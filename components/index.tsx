@@ -3,7 +3,7 @@ import CustomButton from './CustomButton';
 import NavBar from './NavBar';
 import Footer from './Footer';
 import Login from './Login';
-import Signup from './Signup';
+import SignupForm from './forms/SignupForm';
 
 export{
     Hero,
@@ -11,5 +11,5 @@ export{
     NavBar,
     Footer,
     Login,
-    Signup
+    SignupForm
 }

@@ -1,10 +1,9 @@
-import { Signup } from "@/components";
+import { SignupForm } from "@/components";
+import { FormEvent } from "react";
 
-export default function Home() {
+export default async function Home() {
     return (
-      <main className="main">
-        <Signup />
-      </main>
+      <SignupForm/>
     );
   }
   
