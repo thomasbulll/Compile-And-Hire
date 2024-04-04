@@ -1,3 +1,7 @@
+# Compile-And-Hire
+
+The general goal of this is to connect computer science students who want to gain experience and expand their portfolio with companies that want to help
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
