@@ -9,7 +9,7 @@ const CustomButton = ({title, containerStyles,
     <button
     disabled={false}
     type={btnType || "button"}
-    className={`custom-btn ${containerStyles}`}
+    className={`flex flex-row relative justify-center items-center py-3 px-6 outline-none ${containerStyles}`}
     onClick={handleClick}
     >
         <span className=''>
