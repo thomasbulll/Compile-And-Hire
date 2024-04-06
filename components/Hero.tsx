@@ -4,6 +4,7 @@ import React from 'react'
 import Image from 'next/image';
 import CustomButton from './CustomButton';
 import Link from "next/link";
+import { LoginButton } from './auth/login-button';
 
 const Hero = () => {
     const handleScroll = () => {
@@ -20,7 +21,7 @@ const Hero = () => {
                 Discover opportunitues, build projects, and launch your career.
             </p>
             <div className="flex space-x-2">
-            <Link href={"/login"}>
+            <Link href={"/auth/login"}>
                 <CustomButton
                 title="Sign in"
                 containerStyles="bg-gray-100 text-black rounded-full mt-10 hover:bg-gray-200"

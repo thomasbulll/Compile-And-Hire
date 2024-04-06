@@ -11,5 +11,5 @@ export{
     NavBar,
     Footer,
     Login,
-    Signup
+    Signup,
 }
