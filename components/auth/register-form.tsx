@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import * as zod from "zod";
-import { LoginSchema } from "@/schemas";
+import { RegisterSchema } from "@/schemas";
 import { CardWrapper } from "./card-wrapper"
 import {useForm} from "react-hook-form";
 import { zodResolver} from "@hookform/resolvers/zod";
@@ -20,13 +20,14 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
 
-    const form = useForm<zod.infer<typeof LoginSchema>>({
-        resolver: zodResolver(LoginSchema),
+    const form = useForm<zod.infer<typeof RegisterSchema>>({
+        resolver: zodResolver(RegisterSchema),
         defaultValues: {
             email: "",
             password: "",
+            name: "",
         }
     })
 
@@ -34,7 +35,7 @@ export const LoginForm = () => {
     const [success, setSuccess] = useState<string | undefined>("");
     const [isPending, startTransition] = useTransition();
 
-    const onSubmit = (values: zod.infer<typeof LoginSchema>) => {
+    const onSubmit = (values: zod.infer<typeof RegisterSchema>) => {
         setError("");
         setSuccess("");
 
@@ -48,10 +49,10 @@ export const LoginForm = () => {
 
     return (
         <CardWrapper
-        headerLabel="Welcome back!"
-        backButtonHref="/auth/register"
-        backButtonLabel="Don't have an account?"
-        headerTitle="Login"
+        headerLabel="Create an account"
+        backButtonHref="/auth/login"
+        backButtonLabel="Already have an account?"
+        headerTitle="Register"
         showSocial>
             <Form {...form}>
                 <form
@@ -70,6 +71,23 @@ export const LoginForm = () => {
                                     disabled={isPending}
                                     placeholder="email@example.com"
                                     type="email"
+                                    />
+                                </FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Usernme</FormLabel>
+                                <FormControl>
+                                    <Input
+                                    {...field}
+                                    disabled={isPending}
+                                    placeholder="username"
                                     />
                                 </FormControl>
                                 <FormMessage/>

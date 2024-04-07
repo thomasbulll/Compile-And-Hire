@@ -8,3 +8,15 @@ export const LoginSchema = zod.object({
         message: "Password is required"
     })
 })
+
+export const RegisterSchema = zod.object({
+    email:zod.string().email({
+        message: "Email is required"
+    }),
+    password: zod.string().min(6, {
+        message: "Minimum of 6 characters required"
+    }),
+    name: zod.string().min(2, {
+        message: "Name is required"
+    })
+})
