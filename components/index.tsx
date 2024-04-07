@@ -8,5 +8,4 @@ export{
     CustomButton,
     NavBar,
     Footer,
-
 }
