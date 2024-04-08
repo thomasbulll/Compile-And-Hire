@@ -3,7 +3,7 @@
 import bcrypt from "bcrypt";
 import * as zod from "zod";
 import { RegisterSchema } from "@/schemas";
-
+import { getUserByEmail } from "@/data/user"
 import { db } from "@/lib/db";
 
 export const register = async (values: zod.infer<typeof RegisterSchema>) => {
@@ -16,11 +16,7 @@ export const register = async (values: zod.infer<typeof RegisterSchema>) => {
     const { email, password, name } = validatedFields.data;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const existingUserEmail = await db.user.findUnique({
-        where:{
-            email,
-        }
-    });
+    const existingUserEmail = await getUserByEmail(email);
 
     if (existingUserEmail){
         return {
