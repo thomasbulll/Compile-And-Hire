@@ -15,7 +15,7 @@ const NavBar = () => {
                   containerStyles='bg-gray-100 text-primary-blue rounded-full bg-white min-w-[130px] hover:bg-gray-200 '
               />
             </Link>
-            <Link href="/login" >
+            <Link href="/auth/login" >
               <CustomButton
                   title='Sign in'
                   btnType='button'
