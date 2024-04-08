@@ -16,29 +16,17 @@ export const register = async (values: zod.infer<typeof RegisterSchema>) => {
     const { email, password, name } = validatedFields.data;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // const existingUserEmail = await db.user.findUnique({
-    //     where:{
-    //         email,
-    //     }
-    // });
+    const existingUserEmail = await db.user.findUnique({
+        where:{
+            email,
+        }
+    });
 
-    // const existingUsername = await db.user.findUnique({
-    //     where:{
-    //         name,
-    //     }
-    // });
-
-    // if (existingUserEmail){
-    //     return {
-    //         error: "Email already in use!"
-    //     };
-    // }
-
-    // if (existingUsername){
-    //     return {
-    //         error: "Username already in use!"
-    //     };
-    // }
+    if (existingUserEmail){
+        return {
+            error: "Email already in use!"
+        };
+    }
 
     await db.user.create({
         data: {
