@@ -43,6 +43,19 @@ export const {
       return token
     }
   },
+  events: {
+    // No need to verify email if the account is from an OAuth source
+    async linkAccount({ user }) {
+      await db.user.update({
+        where:{id: user.id},
+        data: {emailVerified: new Date()}
+      });
+    }
+  },
+  pages: {
+    signIn: "/auth/login",
+    error: "auth/error"
+  },
   session: { strategy: "jwt" },
   ...authConfig,
 });
