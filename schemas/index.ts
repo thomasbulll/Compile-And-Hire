@@ -7,7 +7,7 @@ export const LoginSchema = zod.object({
     password: zod.string().min(1, {
         message: "Password is required"
     })
-})
+});
 
 export const RegisterSchema = zod.object({
     email:zod.string().email({
@@ -19,4 +19,10 @@ export const RegisterSchema = zod.object({
     name: zod.string().min(2, {
         message: "Name is required"
     })
-})
+});
+
+export const ResetSchema = zod.object({
+    email:zod.string().email({
+        message: "Email is required"
+    })
+});
