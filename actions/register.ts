@@ -7,6 +7,7 @@ import { getUserByEmail } from "@/data/user"
 import { db } from "@/lib/db";
 import { generateVerificationToken } from "@/lib/tokens";
 import { sendVerificationEmail } from "@/lib/mail";
+
 export const register = async (values: zod.infer<typeof RegisterSchema>) => {
     const validatedFields = RegisterSchema.safeParse(values);
 

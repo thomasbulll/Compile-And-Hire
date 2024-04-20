@@ -2,7 +2,8 @@
  * An array of routes that are accessible to anyone not logged in
  */
 export const publicRoutes = [
-    "/"
+    "/",
+    "/auth/new-verification"
 ]
 
 /**
