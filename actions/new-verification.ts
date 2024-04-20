@@ -1,6 +1,5 @@
 "use server";
 
-import * as zod from "zod";
 import { getUserByEmail } from "@/data/user"
 import { db } from "@/lib/db";
 import { getVerificationTokenByToken } from "@/data/verification-token";
