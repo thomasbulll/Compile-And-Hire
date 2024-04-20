@@ -18,6 +18,8 @@ export const NewVerificationFom = () => {
     const token = searchParams.get("token")
 
     const onSubmit = useCallback(() => {
+        if (success || error) return;
+
         if (token) {
             newVerification(token).then((data) => {
                 setSuccess(data.success)
@@ -29,7 +31,7 @@ export const NewVerificationFom = () => {
         }else{
             setError("Missing Token")
         }
-    }, [token]);
+    }, [token, success, error]);
 
     useEffect(() => {
         onSubmit();
@@ -45,8 +47,10 @@ export const NewVerificationFom = () => {
                 {!success && !error &&(
                     <PulseLoader/>
                 )}
-                <FormError message={error}/>
                 <FormSuccess message={success}/>
+                {!success &&(
+                    <FormError message={error}/>
+                )}
             </div>
         </CardWrapper>
     )
