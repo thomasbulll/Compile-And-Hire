@@ -26,3 +26,9 @@ export const ResetSchema = zod.object({
         message: "Email is required"
     })
 });
+
+export const NewPasswordSchema = zod.object({
+    password: zod.string().min(6, {
+        message: "Minimum of 6 characters required"
+    })
+});
