@@ -26,5 +26,7 @@ export const  reset = async (values: zod.infer<typeof ResetSchema>) => {
             passwordResetToken.email,
             passwordResetToken.token
         );
+
+        return { success: "Reset email sent!" }
     }
 };
