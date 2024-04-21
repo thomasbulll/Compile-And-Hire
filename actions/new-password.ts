@@ -1,8 +1,8 @@
 "use server";
 
 import * as zod from "zod";
-// import bcrypt from "bcryptjs";
-// import { db } from "@/lib/db";
+import bcrypt from "bcryptjs";
+import { db } from "@/lib/db";
 
 import { NewPasswordSchema } from "@/schemas";
 import { getPasswordResetTokenByToken } from "@/data/password-reset-token";
@@ -18,46 +18,45 @@ export const  newPassword = async (
     };
 
     const validatedFields = NewPasswordSchema.safeParse(values);
-
-    if (!validatedFields)   {
-        return { error: "Invalid fields!"}
-    };
     
-    // const { password } = validatedFields.data;
+    if (validatedFields.success){
+        const { password } = validatedFields.data;
 
-    const existingToken = await getPasswordResetTokenByToken(token);
+        const existingToken = await getPasswordResetTokenByToken(token);
 
-    if (!existingToken) {
-        return { error: "Invalid token!"}
-    };
+        if (!existingToken) {
+            return { error: "Invalid token!"}
+        };
+    
+        const hasExpired = new Date(existingToken.expires) < new Date();
+    
+        if (hasExpired) {
+            return { error: "Token has expired!"}
+        };
+    
+        const existingUser = await getUserByEmail(existingToken.email);
+    
+        if (!existingUser) {
+            return { error: "User does not exist!"}
+        };
+    
+        const hashedPassword = await bcrypt.hash(password, 10);
+    
+        await db.user.update({
+            where: { id: existingUser.id },
+            data: {password: hashedPassword}
+        });
+    
+        await db.passwordResetToken.delete({
+            where: {id: existingToken.id}
+        });
+    
+        return {
+            success: "Reset"
+        }
 
-    const hasExpired = new Date(existingToken.expires) < new Date();
-
-    if (hasExpired) {
-        return { error: "Token has expired!"}
-    };
-
-    const existingUser = await getUserByEmail(existingToken.email);
-
-    if (!existingUser) {
-        return { error: "User does not exist!"}
-    };
-
-    // const hashedPassword = await bcrypt.hash(password, 10);
-
-    // await db.user.update({
-    //     where: { id: existingUser.id },
-    //     data: {password: hashedPassword}
-    // });
-
-    // await db.passwordResetToken.delete({
-    //     where: {id: existingToken.id}
-    // });
-
-    return {
-        success: "Reset"
+    }else{
+        return { error: "Invalid fields!"}
     }
-
-    // const { password } = values.data;
 
 };
