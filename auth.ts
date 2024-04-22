@@ -27,6 +27,7 @@ export const {
 
         if (!twoFactorConfirmation) return false;
 
+        // Delete confirmation
         await db.twoFactorConfirmation.delete({
           where: { id: twoFactorConfirmation.id }
         });

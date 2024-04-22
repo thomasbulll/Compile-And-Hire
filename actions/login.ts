@@ -40,8 +40,9 @@ export const login = async (values: zod.infer<typeof LoginSchema>) => {
         const twoFactorToken = await generateTwoFactorToken(existingUser.email);
 
         await sendTwoFactorEmail(twoFactorToken.email, twoFactorToken.token)
-    }
 
+        return { twoFactor: true};
+    }
     try{
         await signIn("credentials", {
             email,
