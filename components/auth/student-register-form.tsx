@@ -20,7 +20,7 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { register } from "@/actions/register";
 
-export const RegisterForm = () => {
+export const StudentRegisterForm = () => {
 
     const form = useForm<zod.infer<typeof RegisterSchema>>({
         resolver: zodResolver(RegisterSchema),
@@ -50,7 +50,7 @@ export const RegisterForm = () => {
 
     return (
         <CardWrapper
-        headerLabel="Create an account"
+        headerLabel="Create a student account"
         backButtonHref="/auth/login"
         backButtonLabel="Already have an account?"
         headerTitle="Register"
