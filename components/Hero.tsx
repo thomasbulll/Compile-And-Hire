@@ -28,7 +28,7 @@ const Hero = () => {
                 handleClick={handleScroll}
                 />
             </Link>
-            <Link href={"/auth/student-register"}>
+            <Link href={"/auth/choose-register-type"}>
                 <CustomButton
                     title="Sign Up"
                     containerStyles="bg-blue-600 text-white rounded-full mt-10 hover:bg-blue-700"
