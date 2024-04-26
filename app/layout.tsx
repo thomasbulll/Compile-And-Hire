@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Compile and Hire",
@@ -13,14 +15,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+  
   return (
-    <html lang="en">
-      <body className="relative">
-        <NavBar />
-        {children} 
-        <Footer />
-      </body>
-    </html>
+    <SessionProvider session={session}>
+      <html lang="en">
+        <body className="relative">
+          <NavBar />
+          {children} 
+          <Footer />
+        </body>
+      </html>
+    </SessionProvider>
   );
 }
  
