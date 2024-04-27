@@ -36,3 +36,7 @@ export const NewPasswordSchema = zod.object({
         message: "Minimum of 6 characters required"
     })
 });
+
+export const SettingsSchema = zod.object({
+    name: zod.optional(zod.string())
+});

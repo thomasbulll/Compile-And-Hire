@@ -46,10 +46,9 @@ export const {
 
       if (session.user) {
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+        session.user.name = token.name;
       }
 
-      console.log(token.role)
-      console.log({sessionToken: token})
       return session
     },
     async jwt({token}) {
@@ -65,7 +64,7 @@ export const {
       }
 
       token.role = existingUser.role;
-
+      token.name = existingUser.name;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
 
       return token
