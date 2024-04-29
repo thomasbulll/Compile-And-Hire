@@ -28,8 +28,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { Switch } from "@/components/ui/switch";
-import { currentRole } from "@/lib/auth";
-
 
 const SettingsPage = () => {
     const [isPending, startTransition] = useTransition();
