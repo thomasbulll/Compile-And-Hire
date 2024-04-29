@@ -28,6 +28,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { Switch } from "@/components/ui/switch";
+import { currentRole } from "@/lib/auth";
+
 
 const SettingsPage = () => {
     const [isPending, startTransition] = useTransition();
@@ -36,6 +38,8 @@ const SettingsPage = () => {
 
     const currentUser = useCurrentUser();
 
+    const currentRole = currentUser?.role || "User";
+
     const form = useForm<zod.infer<typeof SettingsSchema>>({
         resolver: zodResolver(SettingsSchema),
         defaultValues: {
@@ -43,6 +47,16 @@ const SettingsPage = () => {
             isTwoFactorEnabled: currentUser?.isTwoFactorEnabled || undefined,
         }
     })
+
+    const getDisplayableUserRole = () => {
+        if (currentUser.role == "BUSINESS"){
+            return "Business";
+        }else if (currentUser.role == "ADMIN"){
+            return "Admin";
+        }else{
+            return "User"
+        }
+    }
  
     const onSubmit = (values: zod.infer<typeof SettingsSchema>) => {
         startTransition(() => {
@@ -85,8 +99,24 @@ const SettingsPage = () => {
                                     <FormControl>
                                         <Input
                                             {...field}
-                                            placeholder="NAME"
+                                            placeholder="Username"
                                             disabled={isPending} />
+                                    </FormControl>
+                                </FormItem>;
+                              }}
+                            />
+                            <FormField
+                            name="role"
+                            render={({ field }) => {
+                                return <FormItem>
+                                    <FormLabel>
+                                        Role
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            {...field}
+                                            placeholder={getDisplayableUserRole}
+                                            disabled={true} />
                                     </FormControl>
                                 </FormItem>;
                               }}

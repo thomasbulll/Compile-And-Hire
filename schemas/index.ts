@@ -1,3 +1,4 @@
+import { UserRole } from "@prisma/client";
 import * as zod from "zod";
 
 export const LoginSchema = zod.object({
@@ -39,5 +40,6 @@ export const NewPasswordSchema = zod.object({
 
 export const SettingsSchema = zod.object({
     name: zod.optional(zod.string()),
-    isTwoFactorEnabled: zod.optional(zod.boolean())
+    isTwoFactorEnabled: zod.optional(zod.boolean()),
+    role: zod.enum([UserRole.USER, UserRole.BUSINESS])
 });
