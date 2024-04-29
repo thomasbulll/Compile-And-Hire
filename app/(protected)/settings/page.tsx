@@ -27,6 +27,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
+import { Switch } from "@/components/ui/switch";
 
 const SettingsPage = () => {
     const [isPending, startTransition] = useTransition();
@@ -39,6 +40,7 @@ const SettingsPage = () => {
         resolver: zodResolver(SettingsSchema),
         defaultValues: {
             name: currentUser?.name || undefined,
+            isTwoFactorEnabled: currentUser?.isTwoFactorEnabled || undefined,
         }
     })
  
@@ -85,6 +87,31 @@ const SettingsPage = () => {
                                             {...field}
                                             placeholder="NAME"
                                             disabled={isPending} />
+                                    </FormControl>
+                                </FormItem>;
+                              }}
+                            />
+                            <FormField
+                            control={form.control}
+                            name="isTwoFactorEnabled"
+                            render={({ field }) => {
+                                return <FormItem
+                                    className="flex flex-row items-center
+                                    justify-between rounded-lg border p-3 shadow-sm">
+                                        <div className="space-y-0.5">
+                                            <FormLabel>
+                                                Two Factor Authentication
+                                            </FormLabel>
+                                            <FormDescription>
+                                                Enable Two Factor Authentication for your account
+                                            </FormDescription>
+                                        </div>
+                                    <FormControl>
+                                        <Switch
+                                        disabled={isPending}
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                        />
                                     </FormControl>
                                 </FormItem>;
                               }}
