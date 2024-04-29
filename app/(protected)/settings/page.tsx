@@ -47,16 +47,6 @@ const SettingsPage = () => {
             isTwoFactorEnabled: currentUser?.isTwoFactorEnabled || undefined,
         }
     })
-
-    const getDisplayableUserRole = () => {
-        if (currentUser.role == "BUSINESS"){
-            return "Business";
-        }else if (currentUser.role == "ADMIN"){
-            return "Admin";
-        }else{
-            return "User"
-        }
-    }
  
     const onSubmit = (values: zod.infer<typeof SettingsSchema>) => {
         startTransition(() => {
@@ -76,89 +66,91 @@ const SettingsPage = () => {
     }
 
     return (
-        <Card className=" pt-36 w-[600px]">
-            <CardHeader>
-                <p className="text-2xl font-semibold text-center">
-                    Settings
-                </p>
-            </CardHeader>
-            <CardContent>
-                <Form {...form}>
-                    <form 
-                    className="space-y-6"
-                    onSubmit={form.handleSubmit(onSubmit)}>
-                        <div className="space-y-4">
-                            <FormField
-                            control={form.control}
-                            name="name"
-                            render={({ field }) => {
-                                return <FormItem>
-                                    <FormLabel>
-                                        Username
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            {...field}
-                                            placeholder="Username"
-                                            disabled={isPending} />
-                                    </FormControl>
-                                </FormItem>;
-                              }}
-                            />
-                            <FormField
-                            name="role"
-                            render={({ field }) => {
-                                return <FormItem>
-                                    <FormLabel>
-                                        Role
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            {...field}
-                                            placeholder={getDisplayableUserRole}
-                                            disabled={true} />
-                                    </FormControl>
-                                </FormItem>;
-                              }}
-                            />
-                            <FormField
-                            control={form.control}
-                            name="isTwoFactorEnabled"
-                            render={({ field }) => {
-                                return <FormItem
-                                    className="flex flex-row items-center
-                                    justify-between rounded-lg border p-3 shadow-sm">
-                                        <div className="space-y-0.5">
-                                            <FormLabel>
-                                                Two Factor Authentication
-                                            </FormLabel>
-                                            <FormDescription>
-                                                Enable Two Factor Authentication for your account
-                                            </FormDescription>
-                                        </div>
-                                    <FormControl>
-                                        <Switch
-                                        disabled={isPending}
-                                        checked={field.value}
-                                        onCheckedChange={field.onChange}
-                                        />
-                                    </FormControl>
-                                </FormItem>;
-                              }}
-                            />
-                        </div>
-                        <FormError message={error} />
-                        <FormSuccess message={success} />
-                        <Button
-                        disabled={isPending}
-                        type="submit"
-                        >
-                            Save
-                        </Button>
-                    </form>
-                </Form>
-            </CardContent>
-        </Card>
+        <div className="flex main justify-center items-center xl:flex-row flex-col gap-5 pt-36">
+            <Card className="w-[600px]">
+                <CardHeader>
+                    <p className="text-2xl font-semibold text-center">
+                        Settings
+                    </p>
+                </CardHeader>
+                <CardContent>
+                    <Form {...form}>
+                        <form 
+                        className="space-y-6"
+                        onSubmit={form.handleSubmit(onSubmit)}>
+                            <div className="space-y-4">
+                                <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => {
+                                    return <FormItem>
+                                        <FormLabel>
+                                            Username
+                                        </FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                {...field}
+                                                placeholder="Username"
+                                                disabled={isPending} />
+                                        </FormControl>
+                                    </FormItem>;
+                                }}
+                                />
+                                <FormField
+                                name="role"
+                                render={({ field }) => {
+                                    return <FormItem>
+                                        <FormLabel>
+                                            Role
+                                        </FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                {...field}
+                                                placeholder={currentUser?.role as string || "USER"}
+                                                disabled={true} />
+                                        </FormControl>
+                                    </FormItem>;
+                                }}
+                                />
+                                <FormField
+                                control={form.control}
+                                name="isTwoFactorEnabled"
+                                render={({ field }) => {
+                                    return <FormItem
+                                        className="flex flex-row items-center
+                                        justify-between rounded-lg border p-3 shadow-sm">
+                                            <div className="space-y-0.5">
+                                                <FormLabel>
+                                                    Two Factor Authentication
+                                                </FormLabel>
+                                                <FormDescription>
+                                                    Enable Two Factor Authentication for your account
+                                                </FormDescription>
+                                            </div>
+                                        <FormControl>
+                                            <Switch
+                                            disabled={isPending}
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                            />
+                                        </FormControl>
+                                    </FormItem>;
+                                }}
+                                />
+                            </div>
+                            <FormError message={error} />
+                            <FormSuccess message={success} />
+                            <Button
+                            disabled={isPending}
+                            type="submit"
+                            >
+                                Save
+                            </Button>
+                        </form>
+                    </Form>
+                </CardContent>
+            </Card>
+        </div>
     );
 }
 
