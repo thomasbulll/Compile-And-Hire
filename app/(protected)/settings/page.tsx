@@ -38,8 +38,6 @@ const SettingsPage = () => {
 
     const currentUser = useCurrentUser();
 
-    const currentRole = currentUser?.role || "User";
-
     const form = useForm<zod.infer<typeof SettingsSchema>>({
         resolver: zodResolver(SettingsSchema),
         defaultValues: {
@@ -97,22 +95,6 @@ const SettingsPage = () => {
                                 }}
                                 />
                                 <FormField
-                                name="role"
-                                render={({ field }) => {
-                                    return <FormItem>
-                                        <FormLabel>
-                                            Role
-                                        </FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                {...field}
-                                                placeholder={currentUser?.role as string || "USER"}
-                                                disabled={true} />
-                                        </FormControl>
-                                    </FormItem>;
-                                }}
-                                />
-                                <FormField
                                 control={form.control}
                                 name="isTwoFactorEnabled"
                                 render={({ field }) => {
@@ -123,9 +105,16 @@ const SettingsPage = () => {
                                                 <FormLabel>
                                                     Two Factor Authentication
                                                 </FormLabel>
+                                                {!currentUser?.isTwoFactorEnabled && (
                                                 <FormDescription>
                                                     Enable Two Factor Authentication for your account
                                                 </FormDescription>
+                                                )}
+                                                {currentUser?.isTwoFactorEnabled && (
+                                                <FormDescription>
+                                                    Disable Two Factor Authentication for your account
+                                                </FormDescription>
+                                                )}
                                             </div>
                                         <FormControl>
                                             <Switch

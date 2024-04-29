@@ -41,5 +41,4 @@ export const NewPasswordSchema = zod.object({
 export const SettingsSchema = zod.object({
     name: zod.optional(zod.string()),
     isTwoFactorEnabled: zod.optional(zod.boolean()),
-    role: zod.enum([UserRole.USER, UserRole.BUSINESS])
 });
