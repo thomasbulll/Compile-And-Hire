@@ -1,6 +1,7 @@
 import { ExtendedUser } from "@/next-auth";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 interface UserInfoProps {
     user?: ExtendedUser;
@@ -11,6 +12,8 @@ export const UserInfo = ({
     user,
     label
 }: UserInfoProps) => {
+    const gitHubConst = "https://github.com/";
+    
     return (
         <Card className="w-[600px] shadow-md">
             <CardHeader>
@@ -38,6 +41,18 @@ export const UserInfo = ({
                     font-mono p-1 bg-slate-100 rounded-md">
                         {user?.name}
                     </p>
+                </div>
+                <div className="flex flex-row items-center justify-between
+                rounded-lg border p-3 shadow-sm">
+                    <p className="text-sm font-medium">
+                        Github Username
+                    </p>
+                    <Link href={gitHubConst + user?.gitHubLink}>
+                        <p className="truncate text-xs max--w-[180px]
+                        font-mono p-1 bg-slate-100 rounded-md">
+                            {user?.gitHubLink}
+                        </p>
+                    </Link>
                 </div>
                 <div className="flex flex-row items-center justify-between
                 rounded-lg border p-3 shadow-sm">
