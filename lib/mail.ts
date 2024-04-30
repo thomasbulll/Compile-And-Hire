@@ -6,7 +6,9 @@ export const sendVerificationEmail = async (
     email: string,
     token: string
 ) => {
-    const confirmLink = `http://localhost:3000/auth/new-verification?token=${token}`;
+    const domainUrl = process.env.PUBLIC_APP_URL;
+
+    const confirmLink = `${domainUrl}/auth/new-verification?token=${token}`;
 
     await resend.emails.send({
         from: "onboarding@resend.dev",
@@ -20,7 +22,9 @@ export const sendPasswordResetEmail = async (
     email: string,
     token: string
 ) => {
-    const resetLink = `http://localhost:3000/auth/new-password?token=${token}`;
+    const domainUrl = process.env.PUBLIC_APP_URL;
+
+    const resetLink = `${domainUrl}/auth/new-password?token=${token}`;
 
     await resend.emails.send({
         from: "onboarding@resend.dev",
