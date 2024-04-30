@@ -12,7 +12,10 @@ import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
 import { db } from "@/lib/db";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 
-export const login = async (values: zod.infer<typeof LoginSchema>) => {
+export const login = async (
+    values: zod.infer<typeof LoginSchema>,
+    callbackUrl?: string | null
+) => {
     const validatedFields = LoginSchema.safeParse(values);
 
     if (!validatedFields.success) {
@@ -83,7 +86,7 @@ export const login = async (values: zod.infer<typeof LoginSchema>) => {
         await signIn("credentials", {
             email,
             password,
-            redirectTo: DEFAULT_LOGIN_REDIRECT,
+            redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
         })
     } catch (error) {
         if (error instanceof AuthError) {
@@ -96,8 +99,4 @@ export const login = async (values: zod.infer<typeof LoginSchema>) => {
         }
         throw error;
     }
-
-    // return {
-    //     success: "Email Sent!"
-    // }
 }
