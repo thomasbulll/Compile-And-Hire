@@ -48,8 +48,12 @@ export const SettingsSchema = zod.object({
 });
 
 export const NewPostSchema = zod.object({
-    title: zod.string(),
+    title: zod.string().min(6, {
+        message: "Minimum of 6 characters required"
+    }),
     compensation: zod.optional(zod.number()),
-    description: zod.string(),
+    description: zod.string().min(20, {
+        message: "Minimum of 20 characters required"
+    }),
     company: zod.string()
 });

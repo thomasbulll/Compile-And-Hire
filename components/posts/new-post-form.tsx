@@ -20,7 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from '@/components/ui/button';
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-// import { new-post } from "@/actions/new-post";
+import { newPost } from "@/actions/new-post";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 export const NewPostForm = () => {
@@ -32,34 +32,30 @@ export const NewPostForm = () => {
         defaultValues: {
             title: "",
             description: "",
-            company: currentUser.name || ""
+            company: currentUser?.name || ""
         }
     })
 
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
     const [isPending, startTransition] = useTransition();
-    const [showTwoFactor, setShowTwoFactor] = useState(false);
 
     const onSubmit = (values: zod.infer<typeof NewPostSchema>) => {
         setError("");
         setSuccess("");
 
-        // startTransition(() => {
-        //     new-post(values).then((data) => {
-        //         if (data?.error) {
-        //             form.reset();
-        //             setError(data?.error);
-        //         }
-        //         if (data?.success) {
-        //             form.reset();
-        //             setSuccess(data?.success);
-        //         }
-        //         if (data?.twoFactor) {
-        //             setShowTwoFactor(true);
-        //         }
-        //     }).catch(() => setError("Something went wrong."))
-        // });
+        startTransition(() => {
+            newPost(values).then((data) => {
+                if (data?.error) {
+                    form.reset();
+                    setError(data?.error);
+                }
+                if (data?.success) {
+                    form.reset();
+                    setSuccess(data?.success);
+                }
+            }).catch(() => setError("Something went wrong."))
+        });
     }
 
     return (
@@ -131,7 +127,7 @@ export const NewPostForm = () => {
                         disabled={isPending}
                         type="submit"
                         className="w-full">
-                        {showTwoFactor ? "Confirm": "Login"}
+                        Create New Post
                     </Button>
 
                 </form>
