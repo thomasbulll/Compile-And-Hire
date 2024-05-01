@@ -23,7 +23,8 @@ export const RegisterSchema = zod.object({
     }),
     name: zod.string().min(2, {
         message: "Name is required"
-    })
+    }),
+    role: zod.string()
 });
 
 export const ResetSchema = zod.object({

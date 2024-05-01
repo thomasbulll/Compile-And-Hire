@@ -29,6 +29,7 @@ export const StudentRegisterForm = () => {
             password: "",
             confirmPassword: "",
             name: "",
+            role: "USER",
         }
     })
 

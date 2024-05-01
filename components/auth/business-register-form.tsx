@@ -29,6 +29,7 @@ export const BusinessRegisterForm = () => {
             password: "",
             confirmPassword: "",
             name: "",
+            role: "BUSINESS",
         }
     })
 
