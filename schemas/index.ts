@@ -46,3 +46,10 @@ export const SettingsSchema = zod.object({
     })),
     isTwoFactorEnabled: zod.optional(zod.boolean()),
 });
+
+export const NewPostSchema = zod.object({
+    title: zod.string(),
+    compensation: zod.optional(zod.number()),
+    description: zod.string(),
+    company: zod.string()
+});
