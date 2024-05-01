@@ -1,7 +1,7 @@
 import { UserInfo } from "@/components/user-info";
 import { currentUser } from "@/lib/auth";
 
-const ServerPage = async () => {
+const ProfilePage = async () => {
     const user = await currentUser();
 
     return (
@@ -14,4 +14,4 @@ const ServerPage = async () => {
     );
 };
 
-export default ServerPage;
+export default ProfilePage;

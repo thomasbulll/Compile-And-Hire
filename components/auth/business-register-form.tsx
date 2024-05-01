@@ -83,7 +83,7 @@ export const BusinessRegisterForm = () => {
                         name="name"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Usernme</FormLabel>
+                                <FormLabel>Company Name</FormLabel>
                                 <FormControl>
                                     <Input
                                     {...field}
