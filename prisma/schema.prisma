@@ -17,11 +17,13 @@ enum UserRole {
 }
 
 model Post {
-  id           String  @id @default(cuid())
-  title        String
-  compensation Int?
-  description  String
-  company      String
+  id             String  @id @default(cuid())
+  title          String
+  compensation   Int?
+  description    String
+  company        String
+  creationTime   DateTime
+  expirationDate DateTime?
 }
 
 model User {

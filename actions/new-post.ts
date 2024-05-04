@@ -11,14 +11,16 @@ export const newPost = async (values: zod.infer<typeof NewPostSchema>) => {
         return {error: "Invalid fields!"};
     }
 
-    const { title, compensation, description, company } = validatedFields.data;
+    const { title, compensation, description, company, expirationDate } = validatedFields.data;
 
     await db.post.create({
         data: {
             title,
             compensation,
             description,
-            company
+            company,
+            creationTime: new Date(),
+            expirationDate: expirationDate
         }
     })
 
