@@ -48,7 +48,6 @@ export const NewPostForm = () => {
 
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
-    const [date, setDate] = useState<Date | undefined>()
     const [isPending, startTransition] = useTransition();
 
     const onSubmit = (values: zod.infer<typeof NewPostSchema>) => {

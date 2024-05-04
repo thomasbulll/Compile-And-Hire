@@ -13,18 +13,27 @@ export const newPost = async (values: zod.infer<typeof NewPostSchema>) => {
 
     const { title, compensation, description, company, expirationDate } = validatedFields.data;
 
-    await db.post.create({
-        data: {
+    const currentTime = new Date();
+
+    if (expirationDate && currentTime > expirationDate) {
+        return { error: "Expiration Date Invalid" }
+    }
+
+    try {
+        await db.post.create({
+          data: {
             title,
             compensation,
             description,
             company,
-            creationTime: new Date(),
-            expirationDate: expirationDate
-        }
-    })
-
-    return {
-        success: "Post Created"
-    };
+            creationTime: currentTime,
+            expirationDate
+          }
+        });
+        return {
+            success: "Post Created"
+        };
+      } catch (error) {
+        return { error: "Error creating post" };
+      }
 }
