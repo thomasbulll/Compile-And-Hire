@@ -7,7 +7,9 @@ import { CardWrapper } from "@/components/auth/card-wrapper";
 import {useForm} from "react-hook-form";
 import Link from "next/link";
 import { CalendarIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
 
+import { format } from "date-fns";
 import { zodResolver} from "@hookform/resolvers/zod";
 import {
     Form,
@@ -22,7 +24,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from '@/components/ui/button';
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { newPost } from "@/actions/new-post";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -30,6 +31,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { newPost } from "@/actions/new-post";
 
 export const NewPostForm = () => {
 
@@ -121,12 +123,18 @@ export const NewPostForm = () => {
                                     <Popover>
                                         <PopoverTrigger asChild>
                                         <FormControl>
-                                            <Button
+                                        <Button
                                             variant={"outline"}
-                                            className=
-                                                "w-[240px] pl-3 text-left font-normal text-muted-foreground">
-                     
+                                            className={cn(
+                                                "w-[240px] pl-3 text-left font-normal",
+                                                !field.value && "text-muted-foreground"
+                                            )}
+                                            >
+                                            {field.value ? (
+                                                format(field.value, "PPP")
+                                            ) : (
                                                 <span>Pick a date</span>
+                                            )}
                                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                             </Button>
                                         </FormControl>
