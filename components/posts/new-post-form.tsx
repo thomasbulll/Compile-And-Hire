@@ -6,6 +6,7 @@ import { NewPostSchema } from "@/schemas";
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import {useForm} from "react-hook-form";
 import Link from "next/link";
+import { CalendarIcon } from "lucide-react"
 
 import { zodResolver} from "@hookform/resolvers/zod";
 import {
@@ -15,6 +16,7 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
+    FormDescription
   } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from '@/components/ui/button';
@@ -22,6 +24,12 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { newPost } from "@/actions/new-post";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export const NewPostForm = () => {
 
@@ -38,6 +46,7 @@ export const NewPostForm = () => {
 
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
+    const [date, setDate] = useState<Date | undefined>()
     const [isPending, startTransition] = useTransition();
 
     const onSubmit = (values: zod.infer<typeof NewPostSchema>) => {
@@ -103,6 +112,44 @@ export const NewPostForm = () => {
                                 </FormItem>
                             )}
                             />
+                            <FormField
+                                control={form.control}
+                                name="expirationDate"
+                                render={({ field }) => (
+                                    <FormItem className="flex flex-col">
+                                    <FormLabel>Post Expiration</FormLabel>
+                                    <Popover>
+                                        <PopoverTrigger asChild>
+                                        <FormControl>
+                                            <Button
+                                            variant={"outline"}
+                                            className=
+                                                "w-[240px] pl-3 text-left font-normal text-muted-foreground">
+                     
+                                                <span>Pick a date</span>
+                                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                            </Button>
+                                        </FormControl>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-auto p-0" align="start">
+                                        <Calendar
+                                            mode="single"
+                                            selected={field.value}
+                                            onSelect={field.onChange}
+                                            disabled={(date) =>
+                                            date < new Date()
+                                            }
+                                            initialFocus
+                                        />
+                                        </PopoverContent>
+                                    </Popover>
+                                    <FormDescription>
+                                        Choose when your post is due to expire.
+                                    </FormDescription>
+                                    <FormMessage />
+                                    </FormItem>
+                                )}
+                                />
                             <FormField
                             control={form.control}
                             name="compensation"
