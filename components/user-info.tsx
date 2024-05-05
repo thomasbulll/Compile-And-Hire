@@ -2,6 +2,7 @@ import { ExtendedUser } from "@/next-auth";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { AiTwotoneSetting } from "react-icons/ai";
 
 interface UserInfoProps {
     user?: ExtendedUser;
@@ -72,6 +73,16 @@ export const UserInfo = ({
                     <Badge variant={user?.isTwoFactorEnabled ? "success" : "destructive"}>
                         {user?.isTwoFactorEnabled ? "ON" : "OFF"}
                     </Badge>
+                </div>
+                <div className="pt-10">
+                <Link className="flex flex-row items-center
+                rounded-lg border p-3 shadow-sm bg-neutral-200"
+                href="/settings">
+                    <AiTwotoneSetting/>
+                    <p className="px-3 text-sm font-medium">
+                        Edit profile
+                    </p>
+                </Link>
                 </div>
             </CardContent>
         </Card>

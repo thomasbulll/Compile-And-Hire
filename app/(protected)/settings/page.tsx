@@ -28,6 +28,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { Switch } from "@/components/ui/switch";
+import { AiTwotoneSetting } from "react-icons/ai";
+import Link from "next/link";
 
 const SettingsPage = () => {
     const [isPending, startTransition] = useTransition();
@@ -151,6 +153,16 @@ const SettingsPage = () => {
                                 Save
                             </Button>
                         </form>
+                        <div className="pt-10">
+                            <Link className="flex flex-row items-center
+                            rounded-lg border p-3 shadow-sm bg-neutral-200"
+                            href="/profile">
+                                <AiTwotoneSetting/>
+                                <p className="px-3 text-sm font-medium">
+                                    View profile
+                                </p>
+                            </Link>
+                        </div>
                     </Form>
                 </CardContent>
             </Card>
