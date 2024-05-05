@@ -42,7 +42,8 @@ export const NewPostForm = () => {
         defaultValues: {
             title: "",
             description: "",
-            company: currentUser?.name || ""
+            company: currentUser?.name || "",
+            userId: currentUser?.id
         }
     })
 

@@ -56,5 +56,6 @@ export const NewPostSchema = zod.object({
         message: "Minimum of 20 characters required"
     }),
     company: zod.string(),
-    expirationDate: zod.optional(zod.date())
+    expirationDate: zod.optional(zod.date()),
+    userId: zod.string()
 });
