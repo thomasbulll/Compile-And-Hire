@@ -75,14 +75,14 @@ export const UserInfo = ({
                     </Badge>
                 </div>
                 <div className="pt-10">
-                <Link className="flex flex-row items-center
-                rounded-lg border p-3 shadow-sm bg-neutral-200"
-                href="/settings">
-                    <AiTwotoneSetting/>
-                    <p className="px-3 text-sm font-medium">
-                        Edit profile
-                    </p>
-                </Link>
+                    <Link className="flex flex-row items-center
+                    rounded-lg border p-3 shadow-sm bg-neutral-200"
+                    href="/settings">
+                        <AiTwotoneSetting/>
+                        <p className="px-3 text-sm font-medium">
+                            Edit profile
+                        </p>
+                    </Link>
                 </div>
             </CardContent>
         </Card>
