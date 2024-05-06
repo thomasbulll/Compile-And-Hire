@@ -31,9 +31,9 @@ export const Post = ({
           </div>
           <p className="text-gray-600 mb-4">{description}</p>
           <div className="flex justify-between text-gray-500 text-sm">
-            <p>Created: {creationTime.toString()}</p>
+            <p>Created: {creationTime.toLocaleDateString()}</p>
             {expirationDate && (
-                <p>Expires: {expirationDate.toString()}</p>
+                <p>Expires: {expirationDate.toLocaleDateString()}</p>
             )}
           </div>
         </div>
