@@ -4,6 +4,7 @@ import * as zod from "zod";
 import { NewPostSchema } from "@/schemas";
 import { db } from "@/lib/db";
 import { getUserById } from "@/data/user";
+import { postsByuserId } from "@/data/posts";
 
 export const newPost = async (values: zod.infer<typeof NewPostSchema>) => {
     const validatedFields = NewPostSchema.safeParse(values);
@@ -23,6 +24,12 @@ export const newPost = async (values: zod.infer<typeof NewPostSchema>) => {
     // if (existingUser.role == "USER") {
     //   return { error: "Only Business accounts can create posts!" };
     // }
+
+    const posts = await postsByuserId(userId)
+    
+    if (posts?.length && posts?.length >= 4) {
+      return { error: "Maximum number of posts reached" }
+    }
 
     const currentTime = new Date();
 
