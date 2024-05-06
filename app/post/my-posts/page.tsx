@@ -10,6 +10,7 @@ const ServerPage = async () => {
     return (
         <div className="flex main justify-center items-center xl:flex-row flex-col gap-5 pt-36">
             <UserPosts
+            userId = {user?.id || ""}
             companyName={user?.name || ""}
             posts={posts}/>
         </div>
