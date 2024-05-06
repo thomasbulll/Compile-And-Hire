@@ -32,7 +32,6 @@ export const UserPosts = ({
 }: UserPostsProps) => {
 
     const [error, setError] = useState<string | undefined>("");
-    const [success, setSuccess] = useState<string | undefined>("");
 
     if (!posts) {
         setError("No posts found")
@@ -59,7 +58,6 @@ export const UserPosts = ({
                             userId={post.userId} />
                         ))}
                         <FormError message={error} />
-                        <FormSuccess message={success} />
                     </CardContent>
                     
                 </Card>
@@ -87,7 +85,6 @@ export const UserPosts = ({
                 userId={post.userId} />
             ))}
             <FormError message={error} />
-            <FormSuccess message={success} />
         </CardContent>
     </Card>
     )    
