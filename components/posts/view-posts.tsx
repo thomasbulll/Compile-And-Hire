@@ -1,12 +1,9 @@
 "use client";
 
-import { postsByuserId } from "@/data/posts";
 import { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { currentUser } from "@/lib/auth";
 import { Post } from "@/components/posts/post";
 import { FormError } from "../form-error";
-import { FormSuccess } from "../form-success";
 
 interface PostProps {
     id: string;
@@ -54,8 +51,7 @@ export const UserPosts = ({
                             company={post.company}
                             compensation={post.compensation}
                             creationTime={post.creationTime}
-                            expirationDate={post.expirationDate}
-                            userId={post.userId} />
+                            expirationDate={post.expirationDate}/>
                         ))}
                         <FormError message={error} />
                     </CardContent>
@@ -81,8 +77,7 @@ export const UserPosts = ({
                 company={post.company}
                 compensation={post.compensation}
                 creationTime={post.creationTime}
-                expirationDate={post.expirationDate}
-                userId={post.userId} />
+                expirationDate={post.expirationDate} />
             ))}
             <FormError message={error} />
         </CardContent>

@@ -8,3 +8,12 @@ export const postsByuserId = async (userId: string) => {
         return null;
     }
 }
+
+export const postById = async (id: string) => {
+    try{
+        const posts = await db.post.findUnique({where: {id}});
+        return posts;
+    } catch {
+        return null;
+    }
+}

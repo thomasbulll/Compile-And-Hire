@@ -7,7 +7,6 @@ interface PostProps {
     company: string;
     creationTime: Date;
     expirationDate: Date | null;
-    userId: string;
 }
 
 export const Post = ({
@@ -17,7 +16,6 @@ export const Post = ({
     company,
     creationTime,
     expirationDate,
-    userId,
 }: PostProps) => {
     return (
         <div className="post bg-white rounded-lg shadow-md overflow-hidden">

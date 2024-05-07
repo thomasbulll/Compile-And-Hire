@@ -5,7 +5,6 @@ import * as zod from "zod";
 import { NewPostSchema } from "@/schemas";
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import {useForm} from "react-hook-form";
-import Link from "next/link";
 import { CalendarIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
