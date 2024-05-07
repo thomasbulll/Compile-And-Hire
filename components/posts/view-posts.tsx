@@ -8,7 +8,7 @@ import { FormError } from "../form-error";
 interface PostProps {
     id: string;
     title: string;
-    compensation: number | null;
+    compensation: string | null;
     description: string;
     company: string;
     creationTime: Date;
@@ -45,7 +45,8 @@ export const UserPosts = ({
                     </CardHeader>
                     <CardContent className="space-y-4">
                         {posts?.map((post) => (
-                            <Post 
+                            <Post
+                            id={post.id}
                             title={post.title}
                             description={post.description}
                             company={post.company}
@@ -55,7 +56,6 @@ export const UserPosts = ({
                         ))}
                         <FormError message={error} />
                     </CardContent>
-                    
                 </Card>
                 );
             }
@@ -72,12 +72,13 @@ export const UserPosts = ({
         <CardContent className="space-y-4">
             {posts?.map((post) => (
                 <Post 
+                id={post.id} 
                 title={post.title}
                 description={post.description}
                 company={post.company}
                 compensation={post.compensation}
                 creationTime={post.creationTime}
-                expirationDate={post.expirationDate} />
+                expirationDate={post.expirationDate}/>
             ))}
             <FormError message={error} />
         </CardContent>

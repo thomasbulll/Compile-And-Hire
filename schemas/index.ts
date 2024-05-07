@@ -51,11 +51,22 @@ export const NewPostSchema = zod.object({
     title: zod.string().min(6, {
         message: "Minimum of 6 characters required"
     }),
-    compensation: zod.optional(zod.number()),
+    compensation: zod.optional(zod.string()),
     description: zod.string().min(20, {
         message: "Minimum of 20 characters required"
     }),
     company: zod.string(),
     expirationDate: zod.optional(zod.date()),
     userId: zod.string()
+});
+
+export const EditPostSchema = zod.object({
+    title: zod.optional(zod.string().min(6, {
+        message: "Minimum of 6 characters required"
+    })),
+    compensation: zod.optional(zod.string()),
+    description: zod.optional(zod.string().min(20, {
+        message: "Minimum of 20 characters required"
+    })),
+    expirationDate: zod.optional(zod.date())
 });

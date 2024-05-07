@@ -19,7 +19,7 @@ enum UserRole {
 model Post {
   id             String  @id @default(cuid())
   title          String
-  compensation   Int?
+  compensation   String?
   description    String
   company        String
   creationTime   DateTime

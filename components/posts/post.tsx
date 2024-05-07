@@ -1,8 +1,12 @@
 "use client";
 
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
 interface PostProps {
+    id: string; 
     title: string;
-    compensation: number | null;
+    compensation: string | null;
     description: string;
     company: string;
     creationTime: Date;
@@ -10,6 +14,7 @@ interface PostProps {
 }
 
 export const Post = ({
+    id,
     title,
     compensation,
     description,
@@ -17,10 +22,20 @@ export const Post = ({
     creationTime,
     expirationDate,
 }: PostProps) => {
+  
+    const editPostUrl = "/post/edit-post?id=" + id;
+
     return (
         <div className="post bg-white rounded-lg shadow-md overflow-hidden">
         <div className="p-4">
-          <h3 className="text-xl font-bold text-gray-800">{title}</h3>
+          <div className="pt-2 flex justify-between">
+            <h3 className="text-xl font-bold text-gray-800">{title}</h3>
+            <Button>
+              <Link href={editPostUrl}>
+                Edit Post
+              </Link>
+            </Button>
+          </div>
           <div className="flex items-center mb-2">
             <p className="text-gray-700 mr-2">at {company}</p>
             {compensation && (
