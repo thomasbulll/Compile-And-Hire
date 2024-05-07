@@ -17,3 +17,12 @@ export const postById = async (id: string) => {
         return null;
     }
 }
+
+export const getMostRecentPosts = async () => {
+    try{
+        const posts = await db.post.findMany({ take: 10 })
+        return posts;
+    } catch {
+        return null;
+    }
+}

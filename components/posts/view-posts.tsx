@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Post } from "@/components/posts/post";
+import { BusinessPost } from "@/components/posts/business-post";
 import { FormError } from "../form-error";
 
 interface PostProps {
@@ -45,7 +45,7 @@ export const UserPosts = ({
                     </CardHeader>
                     <CardContent className="space-y-4">
                         {posts?.map((post) => (
-                            <Post
+                            <BusinessPost
                             id={post.id}
                             key={post.id}
                             title={post.title}
@@ -72,7 +72,7 @@ export const UserPosts = ({
         </CardHeader>
         <CardContent className="space-y-4">
             {posts?.map((post) => (
-                <Post 
+                <BusinessPost 
                 id={post.id}
                 key={post.id} 
                 title={post.title}

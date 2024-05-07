@@ -15,7 +15,14 @@ const NavBar = () => {
                   containerStyles='bg-gray-100 text-primary-blue rounded-full bg-white min-w-[130px] hover:bg-gray-200 '
               />
             </Link>
-            <Link href="/auth/register" >
+            <Link href="/student/all-posts" className='flex justify-center items-center'>
+            <CustomButton
+                  title='View Posts'
+                  btnType='button'
+                  containerStyles='bg-gray-100 text-primary-blue rounded-full bg-white min-w-[130px] hover:bg-gray-200 '
+              />
+            </Link>
+            <Link href="/auth/choose-register-type" >
               <CustomButton
                   title='Sign Up'
                   btnType='button'
