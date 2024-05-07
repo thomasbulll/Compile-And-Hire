@@ -47,6 +47,7 @@ export const UserPosts = ({
                         {posts?.map((post) => (
                             <Post
                             id={post.id}
+                            key={post.id}
                             title={post.title}
                             description={post.description}
                             company={post.company}
@@ -72,7 +73,8 @@ export const UserPosts = ({
         <CardContent className="space-y-4">
             {posts?.map((post) => (
                 <Post 
-                id={post.id} 
+                id={post.id}
+                key={post.id} 
                 title={post.title}
                 description={post.description}
                 company={post.company}

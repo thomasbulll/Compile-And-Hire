@@ -8,7 +8,7 @@ import { NewPasswordSchema } from "@/schemas";
 import { getPasswordResetTokenByToken } from "@/data/password-reset-token";
 import { getUserByEmail } from "@/data/user";
 
-export const  newPassword = async (
+export const newPassword = async (
     values: zod.infer<typeof NewPasswordSchema>,
     token?: string | null,
 ) => {

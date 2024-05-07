@@ -1,15 +1,12 @@
 "use client";
 
-import { logout } from "@/actions/logout";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { UserButton } from "@/components/auth/user-button";
 import {
     Card,
     CardHeader,
     CardContent
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-// import { edit-post } from "@/actions/edit-post";
+import { editPost } from "@/actions/edit-post";
 import { useTransition, useState } from "react";
 import * as zod from "zod";
 import { useForm } from "react-hook-form";
@@ -36,6 +33,7 @@ import {
 import { CalendarIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns";
+import { useSearchParams } from "next/navigation";
 
 interface PostProps {
     id: string;
@@ -48,45 +46,39 @@ interface PostProps {
     userId: string;
 }
 
-interface EditPostFormProps {
-    post: PostProps | null;
-}
 
-export const EditPostForm = ({
-    post
-}: EditPostFormProps) => {
+export const EditPostForm = () => {
 
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
 
-    const currentUser = useCurrentUser();
+    const searchParams = useSearchParams();
+
+    const postId = searchParams.get("id")
 
     const form = useForm<zod.infer<typeof EditPostSchema>>({
         resolver: zodResolver(EditPostSchema),
         defaultValues: {
-            title: post?.title || undefined,
-            compensation: post?.compensation || undefined,
-            description: post?.description || undefined,
-            expirationDate: post?.expirationDate || undefined,
+            id: postId || undefined,
         }
     })
  
     const onSubmit = (values: zod.infer<typeof EditPostSchema>) => {
-        // startTransition(() => {
-        //     edit-post(values)
-        //     .then((data) => {
-        //         if (data.error) {
-        //             setError(data.error);
-        //         }
+        startTransition(() => {
+            editPost(values)
+            .then((data) => {
+                if (data.error) {
+                    setError(data.error);
+                }
 
-        //         if (data.success) {
-        //             setSuccess(data.success);
-        //         }
-        //     }).catch(() => {
-        //         setError("Something went wrong!");
-        //     })
-        // })
+                if (data.success) {
+                    setSuccess(data.success);
+                }
+            }).catch(() => {
+                setError("Something went wrong!");
+            })
+        })
     }
 
     return (
@@ -114,7 +106,7 @@ export const EditPostForm = ({
                                         <FormControl>
                                             <Input
                                                 {...field}
-                                                placeholder={post?.title || "Title"}
+                                                placeholder={"Title"}
                                                 disabled={isPending} />
                                         </FormControl>
                                     </FormItem>;
@@ -131,7 +123,7 @@ export const EditPostForm = ({
                                         <FormControl>
                                             <Input
                                                 {...field}
-                                                placeholder={post?.description || "Description"}
+                                                placeholder={ "Description"}
                                                 disabled={isPending} />
                                         </FormControl>
                                     </FormItem>;
@@ -148,7 +140,7 @@ export const EditPostForm = ({
                                         <FormControl>
                                             <Input
                                                 {...field}
-                                                placeholder={post?.compensation || "Compensation"}
+                                                placeholder={"Compensation"}
                                                 disabled={isPending} />
                                         </FormControl>
                                     </FormItem>;

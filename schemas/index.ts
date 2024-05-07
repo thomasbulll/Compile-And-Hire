@@ -61,6 +61,7 @@ export const NewPostSchema = zod.object({
 });
 
 export const EditPostSchema = zod.object({
+    id: zod.string(),
     title: zod.optional(zod.string().min(6, {
         message: "Minimum of 6 characters required"
     })),

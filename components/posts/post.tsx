@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 interface PostProps {
-    id: string; 
+    id: string;
     title: string;
     compensation: string | null;
     description: string;
@@ -22,7 +22,7 @@ export const Post = ({
     creationTime,
     expirationDate,
 }: PostProps) => {
-  
+
     const editPostUrl = "/post/edit-post?id=" + id;
 
     return (
