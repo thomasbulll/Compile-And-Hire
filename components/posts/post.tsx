@@ -2,6 +2,12 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface PostProps {
     id: string;
@@ -39,7 +45,18 @@ export const Post = ({
           <div className="flex items-center mb-2">
             <p className="text-gray-700 mr-2">at {company}</p>
             {compensation && (
-                <span className="inline-block bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs font-semibold">{compensation}</span>
+              <div className="cursor-default">
+                  <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <span className="inline-block bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs font-semibold">$ {compensation}</span>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Compensation upon project completion</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
             )}
           </div>
           <p className="text-gray-600 mb-4">{description}</p>
