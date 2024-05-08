@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { GenericPost } from "@/components/posts/generic-post";
 import { FormError } from "../form-error";
+import Link from "next/link";
 
 interface PostProps {
     id: string;
@@ -29,6 +30,14 @@ export const ViewAllPosts = ({
     if (!posts) {
         setError("No posts found")
     }
+
+    const [postUrls, setPostUrls] = useState<string[]>([]);
+
+    useEffect(() => {
+    if (posts) {
+        setPostUrls(posts.map((post) => `/student/view-post?id=${post.id}`));
+    }
+    }, [posts]);
     
     return (
         <Card className="w-[600px] shadow-md">
@@ -38,16 +47,19 @@ export const ViewAllPosts = ({
             </p>
         </CardHeader>
         <CardContent className="space-y-4">
-            {posts?.map((post) => (
-                <GenericPost
-                id={post.id}
-                key={post.id}
-                title={post.title}
-                description={post.description}
-                company={post.company}
-                compensation={post.compensation}
-                creationTime={post.creationTime}
-                expirationDate={post.expirationDate}/>
+            {posts?.map((post, index) => (
+            <Link href={postUrls[index]} key={post.id}>
+                    <GenericPost
+                    id={post.id}
+                    key={post.id}
+                    title={post.title}
+                    description={post.description}
+                    company={post.company}
+                    compensation={post.compensation}
+                    creationTime={post.creationTime}
+                    expirationDate={post.expirationDate}/>
+                </Link>
+                
             ))}
             <FormError message={error} />
         </CardContent>

@@ -2,7 +2,7 @@ import { ViewAllPosts } from "@/components/posts/view-all-posts";
 import { getMostRecentPosts } from "@/data/posts";
 import { currentUser } from "@/lib/auth";
 
-const ServerPage = async () => {
+const AllPostsPage = async () => {
     const user = await currentUser();
 
     const posts = await getMostRecentPosts();
@@ -15,4 +15,4 @@ const ServerPage = async () => {
     );
 };
 
-export default ServerPage;
+export default AllPostsPage;
