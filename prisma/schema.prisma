@@ -42,8 +42,7 @@ model User {
   posts         Post[]
   isTwoFactorEnabled Boolean @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
-  // urls          String[]
-  gitHubLink    String?
+  urls          String[]
 }
 
 model Account {

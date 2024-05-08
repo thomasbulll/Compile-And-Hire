@@ -38,16 +38,19 @@ const form = useForm<zod.infer<typeof SettingsSchema>>({
     defaultValues: {
         name: currentUser?.name || undefined,
         isTwoFactorEnabled: currentUser?.isTwoFactorEnabled || undefined,
-        // urls: currentUser?.urls || undefined,
         bio: currentUser?.bio || undefined,
     }
 })
 
 
-//   const { fields, append } = useFieldArray({
-//     name: "urls",
-//     control: form.control,
-//   })
+  const { fields, append, remove } = useFieldArray({
+    name: "urls",
+    control: form.control,
+  })
+
+//   for (let i = 0; i < (currentUser?.urls.length || 0); i++) {
+//     fields.append({ value: currentUser?.urls[i] });
+//   }
 
 
   const onSubmit = (values: zod.infer<typeof SettingsSchema>) => {
@@ -70,10 +73,6 @@ const form = useForm<zod.infer<typeof SettingsSchema>>({
         })
     })
 }
-
-    function append(arg0: { value: string; }): void {
-        throw new Error("Function not implemented.");
-    }
 
   return (
     <Form {...form}>
@@ -112,29 +111,7 @@ const form = useForm<zod.infer<typeof SettingsSchema>>({
             </FormItem>
           )}
         />
-        <div>
-          {/* {fields.map((field, index) => (
-            <FormField
-              control={form.control}
-              key={field.id}
-              name={`urls.${index}.value`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className={cn(index !== 0 && "sr-only")}>
-                    URLs
-                  </FormLabel>
-                  <FormDescription className={cn(index !== 0 && "sr-only")}>
-                    Add links to your website, blog, or social media profiles.
-                  </FormDescription>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))} */}
-          <FormField
+        <FormField
             control={form.control}
             name="isTwoFactorEnabled"
             render={({ field }) => {
@@ -166,7 +143,41 @@ const form = useForm<zod.infer<typeof SettingsSchema>>({
                 </FormItem>;
             }}
             />
-          {/* <Button
+        <div>
+          {fields.map((field, index) => (
+            <FormField
+              control={form.control}
+              key={field.id}
+              name={`urls.${index}.value`}
+              defaultValue={field.value}
+              render={({ field }) => (
+                <div className="">
+                    <FormItem>  
+                        <FormLabel className={cn(index !== 0 && "sr-only")}>
+                            URLs
+                        </FormLabel>
+                        <FormDescription className={cn(index !== 0 && "sr-only")}>
+                            Add links to your website, blog, or social media profiles.
+                        </FormDescription>
+                        <FormControl>
+                            <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            className="ml-2"
+                            onClick={() => remove(index)} // Call remove function with index
+                            >
+                            Remove
+                        </Button>
+                    </FormItem>
+                </div>
+              )}
+            />
+          ))}
+          <Button
             type="button"
             variant="outline"
             size="sm"
@@ -174,7 +185,7 @@ const form = useForm<zod.infer<typeof SettingsSchema>>({
             onClick={() => append({ value: "" })}
           >
             Add URL
-          </Button> */}
+          </Button>
         </div>
         <FormError message={error} />
         <Button

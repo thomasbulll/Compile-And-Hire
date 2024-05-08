@@ -4,9 +4,8 @@ export type ExtendedUser = DefaultSession["user"] & {
     role: "ADMIN" | "USER" | "BUSINESS";
     isTwoFactorEnabled: boolean;
     isOauth: boolean;
-    gitHubLink: string;
     bio: string;
-    // urls: string[];
+    urls: string[];
 };
 
 declare module "next-auth" {
