@@ -4,6 +4,7 @@ import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
 import * as zod from "zod";
+import { FormError } from "@/components/form-error";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -22,13 +23,15 @@ import { toast } from "@/components/ui/use-toast";
 import { SettingsSchema } from "@/schemas"
 import { useCurrentUser } from "@/hooks/use-current-user"
 import { Switch } from "../ui/switch";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
+import { settings } from "@/actions/settings";
 
 export const ProfileForm = () => {
     
 const currentUser = useCurrentUser();
 
 const [isPending, startTransition] = useTransition();
+const [error, setError] = useState<string | undefined>("");
 
 const form = useForm<zod.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
@@ -50,27 +53,22 @@ const form = useForm<zod.infer<typeof SettingsSchema>>({
 
   const onSubmit = (values: zod.infer<typeof SettingsSchema>) => {
     startTransition(() => {
-        toast({
-            title: "You submitted the following values:",
-            description: (
-              <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-              </pre>
-            ),
-          })
-        // editPost(values)
-        // .then((data) => {
-        //     toast({
-        //         title: "You submitted the following values:",
-        //         description: (
-        //           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-        //             <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        //           </pre>
-        //         ),
-        //       })
-        // }).catch(() => {
-        //     setError("Something went wrong!");
-        // })
+        settings(values)
+        .then((data) => {
+            if (data.success) {
+                console.log(JSON.stringify(values, null, 2));
+                toast({
+                    title: "You submitted the following values:",
+                    description: (
+                      <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                        <code className="text-white">{JSON.stringify(values, null, 2)}</code>
+                      </pre>
+                    ),
+                })
+            }
+        }).catch(() => {
+            setError("Something went wrong!");
+        })
     })
 }
 
@@ -169,7 +167,7 @@ const form = useForm<zod.infer<typeof SettingsSchema>>({
                 </FormItem>;
             }}
             />
-          <Button
+          {/* <Button
             type="button"
             variant="outline"
             size="sm"
@@ -177,8 +175,9 @@ const form = useForm<zod.infer<typeof SettingsSchema>>({
             onClick={() => append({ value: "" })}
           >
             Add URL
-          </Button>
+          </Button> */}
         </div>
+        <FormError message={error} />
         <Button
         type="submit"
         disabled={isPending}>
