@@ -45,6 +45,13 @@ export const SettingsSchema = zod.object({
         message: "Too many characters"
     })),
     isTwoFactorEnabled: zod.optional(zod.boolean()),
+    // urls: zod
+    // .array(
+    //     zod.object({
+    //     value: zod.string().url({ message: "Please enter a valid URL." }),
+    //   })
+    // ).optional(),
+    bio: zod.optional(zod.string().max(160).min(4)),
 });
 
 export const NewPostSchema = zod.object({

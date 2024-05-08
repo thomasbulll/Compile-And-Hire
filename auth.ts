@@ -50,6 +50,9 @@ export const {
         session.user.name = token.name;
         session.user.isOauth = token.isOAuth as boolean;
         session.user.gitHubLink = token.gitHubLink as string;
+        session.user.bio = token.bio as string;
+        // session.user.urls = token.urls as string[];
+
       }
 
       return session
@@ -73,6 +76,8 @@ export const {
       token.name = existingUser.name;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
       token.gitHubLink = existingUser.gitHubLink;
+      token.bio = existingUser.bio;
+      // token.urls = existingUser.urls;
 
       return token
     }

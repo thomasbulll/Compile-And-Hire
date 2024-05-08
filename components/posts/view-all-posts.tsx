@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { GenericPost } from "@/components/posts/generic-post";
 import { FormError } from "../form-error";
@@ -31,13 +31,7 @@ export const ViewAllPosts = ({
         setError("No posts found")
     }
 
-    const [postUrls, setPostUrls] = useState<string[]>([]);
-
-    useEffect(() => {
-    if (posts) {
-        setPostUrls(posts.map((post) => `/student/view-post?id=${post.id}`));
-    }
-    }, [posts]);
+    const postUrls = posts ? posts.map((post) => `/student/view-post?id=${post.id}`) : [];
     
     return (
         <Card className="w-[600px] shadow-md">

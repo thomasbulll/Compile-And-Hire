@@ -39,6 +39,9 @@ export const ViewSinglePost = ({
         <CardContent className="space-y-4">
                 <div className="flex flex-row items-center justify-between
                 rounded-lg border p-3 shadow-sm">
+                    <p className="text-sm font-medium">
+                        Description
+                    </p>
                     <p className="truncate text-xs max--w-[180px]
                     font-mono p-1 bg-slate-100 rounded-md">
                         {post?.description}
@@ -46,6 +49,9 @@ export const ViewSinglePost = ({
                 </div>
                 <div className="flex flex-row items-center justify-between
                 rounded-lg border p-3 shadow-sm">
+                    <p className="text-sm font-medium">
+                        Company
+                    </p>
                     <p className="truncate text-xs max--w-[180px]
                     font-mono p-1 bg-slate-100 rounded-md">
                         {post?.company}
@@ -54,14 +60,20 @@ export const ViewSinglePost = ({
                 {post?.compensation && (
                     <div className="flex flex-row items-center justify-between
                     rounded-lg border p-3 shadow-sm">
+                        <p className="text-sm font-medium">
+                            Compensation
+                        </p>
                         <p className="truncate text-xs max--w-[180px]
                         font-mono p-1 bg-slate-100 rounded-md">
-                            {post?.compensation}
+                           $ {post?.compensation}
                         </p>
                     </div>
                 )}
                 <div className="flex flex-row items-center justify-between
                     rounded-lg border p-3 shadow-sm">
+                        <p className="text-sm font-medium">
+                            Creation Date
+                        </p>
                         <p className="truncate text-xs max--w-[180px]
                         font-mono p-1 bg-slate-100 rounded-md">
                             {post?.creationTime.toLocaleDateString()}
@@ -70,6 +82,9 @@ export const ViewSinglePost = ({
                 {post?.expirationDate && (
                     <div className="flex flex-row items-center justify-between
                     rounded-lg border p-3 shadow-sm">
+                        <p className="text-sm font-medium">
+                            Expiration Date
+                        </p>
                         <p className="truncate text-xs max--w-[180px]
                         font-mono p-1 bg-slate-100 rounded-md">
                             {post?.expirationDate.toLocaleDateString()}
