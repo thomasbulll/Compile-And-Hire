@@ -37,7 +37,6 @@ const form = useForm<zod.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
         name: currentUser?.name || undefined,
-        gitHubLink: currentUser?.name || undefined,
         isTwoFactorEnabled: currentUser?.isTwoFactorEnabled || undefined,
         // urls: currentUser?.urls || undefined,
         bio: currentUser?.bio || undefined,

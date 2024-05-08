@@ -41,9 +41,6 @@ export const NewPasswordSchema = zod.object({
 
 export const SettingsSchema = zod.object({
     name: zod.optional(zod.string()),
-    gitHubLink: zod.optional(zod.string().max(20, {
-        message: "Too many characters"
-    })),
     isTwoFactorEnabled: zod.optional(zod.boolean()),
     // urls: zod
     // .array(

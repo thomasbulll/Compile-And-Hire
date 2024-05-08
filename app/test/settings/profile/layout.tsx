@@ -17,23 +17,15 @@ export const metadata: Metadata = {
 const sidebarNavItems = [
   {
     title: "Profile",
-    href: "/examples/forms",
-  },
-  {
-    title: "Account",
-    href: "/examples/forms/account",
+    href: "/test/settings/profile",
   },
   {
     title: "Appearance",
-    href: "/examples/forms/appearance",
+    href: "/test/settings/appearance",
   },
   {
     title: "Notifications"  ,
-    href: "/examples/forms/notifications",
-  },
-  {
-    title: "Display",
-    href: "/examples/forms/display",
+    href: "/test/settings/notifications",
   },
 ]
 
@@ -44,7 +36,7 @@ interface SettingsLayoutProps {
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
     <div className="flex justify-center items-center xl:flex-row flex-col gap-5 pt-36">
-        <Card className="w-[1000px] shadow-md">
+        <Card className="w-[1400px] shadow-md">
             <div className="hidden space-y-6 p-10 pb-16 md:block">
                 <div className="space-y-0.5">
                 <h2 className="text-2xl font-bold tracking-tight">Settings</h2>

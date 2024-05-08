@@ -96,23 +96,6 @@ const SettingsPage = () => {
                                 />
                                 <FormField
                                 control={form.control}
-                                name="gitHubLink"
-                                render={({ field }) => {
-                                    return <FormItem>
-                                        <FormLabel>
-                                            Github Username
-                                        </FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                {...field}
-                                                placeholder="github.com/username"
-                                                disabled={isPending} />
-                                        </FormControl>
-                                    </FormItem>;
-                                }}
-                                />
-                                <FormField
-                                control={form.control}
                                 name="isTwoFactorEnabled"
                                 render={({ field }) => {
                                     return <FormItem
