@@ -1,36 +1,65 @@
 'use client';
 
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link';
 import CustomButton from './CustomButton';
+import { Button } from '@/components/ui/button';
+import { logout } from '@/actions/logout';
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
 const NavBar = () => {
+
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const handleNav = () => {
+    setMenuOpen(!menuOpen);
+  }
+
   return (
-    <header className="w-full absolute z-10">
-        <nav className='max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4 bg-transparent'>
-            <Link href="/" className='flex justify-center items-center'>
-            <CustomButton
-                  title='Home'
-                  btnType='button'
-                  containerStyles='bg-gray-100 text-primary-blue rounded-full bg-white min-w-[130px] hover:bg-gray-200 '
-              />
+    <nav className="fixed w-full h-24 shadow-xl bg-white">
+      <div className="flex justify-between items-center h-full w-full px-4 2x1:px-16">
+        <Link href="/">
+          Home
+        </Link>
+        <div>
+          <ul className="hiddem sm:flex">
+            <Link href="/why-us">
+              <li className="ml-10 uppercase hover:border-b text-xl">Why us</li>
             </Link>
-            <Link href="/student/all-posts" className='flex justify-center items-center'>
-            <CustomButton
-                  title='View Posts'
-                  btnType='button'
-                  containerStyles='bg-gray-100 text-primary-blue rounded-full bg-white min-w-[130px] hover:bg-gray-200 '
-              />
+            <Link href="/about">
+              <li className="ml-10 uppercase hover:border-b text-xl">About</li>
             </Link>
-            <Link href="/auth/choose-register-type" >
-              <CustomButton
-                  title='Sign Up'
-                  btnType='button'
-                  containerStyles='bg-gray-200 text-primary-blue rounded-full bg-white min-w-[130px] hover:bg-gray-300 '
-              />
+            <Link href="/auth/login">
+              <li className="mx-10 uppercase hover:border-b text-xl">Sign Up</li>
             </Link>
-        </nav>
-    </header>
+          </ul>
+        </div>
+        <div onClick={handleNav} className="sm:hidden cursor-pointer pl-24">
+          <AiOutlineMenu size={25}/>
+        </div>
+      </div>
+      <div className={
+        menuOpen 
+        ? "fixed left-0 top-0 w-[65%] sm:hidden h-screen bg-gray-400 p-10 ease-in duration-500"
+        : "fixed left-[-100%] top-0 p-10 ease-in duration-1000"
+      }>
+        <div className="flex w-full items-center justify-end">
+          <div onClick={handleNav} className="cursor-pointer">
+            <AiOutlineClose size={25}/>
+          </div>
+        </div>
+        <div className="flex-col py-4">
+          <ul>
+            <Link href="">
+              <li onClick={() => setMenuOpen(false)}>
+                Home
+              </li>
+            </Link>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
   )
 }
 

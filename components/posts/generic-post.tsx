@@ -16,8 +16,7 @@ interface PostProps {
 }
 
 export const GenericPost = ({
-    id,
-    title,
+     title,
     compensation,
     description,
     company,
