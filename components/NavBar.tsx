@@ -6,6 +6,9 @@ import CustomButton from './CustomButton';
 import { Button } from '@/components/ui/button';
 import { logout } from '@/actions/logout';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { currentUser } from '@/lib/auth';
+import { useCurrentUser } from '@/hooks/use-current-user';
+import { signOut } from '@/auth';
 
 const NavBar = () => {
 
@@ -14,6 +17,8 @@ const NavBar = () => {
   const handleNav = () => {
     setMenuOpen(!menuOpen);
   }
+
+  const currentUser = useCurrentUser();
 
   return (
     <nav className="fixed w-full h-24 shadow-xl bg-white">
@@ -29,9 +34,19 @@ const NavBar = () => {
             <Link href="/about">
               <li className="ml-10 uppercase hover:border-b text-xl">About</li>
             </Link>
-            <Link href="/auth/login">
+            {currentUser && (
+              <li className="mx-10 uppercase hover:border-b text-xl hover:cursor-pointer"
+              onClick={() => {
+                logout();
+              }}>
+                Sign Out
+              </li>
+            )}
+            {!currentUser && (
+              <Link href="/auth/choose-register-type">
               <li className="mx-10 uppercase hover:border-b text-xl">Sign Up</li>
             </Link>
+            )}
           </ul>
         </div>
         <div onClick={handleNav} className="sm:hidden cursor-pointer pl-24">
