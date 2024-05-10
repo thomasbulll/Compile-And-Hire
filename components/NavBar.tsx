@@ -2,13 +2,9 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link';
-import CustomButton from './CustomButton';
-import { Button } from '@/components/ui/button';
 import { logout } from '@/actions/logout';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { currentUser } from '@/lib/auth';
 import { useCurrentUser } from '@/hooks/use-current-user';
-import { signOut } from '@/auth';
 
 const NavBar = () => {
 
@@ -21,13 +17,16 @@ const NavBar = () => {
   const currentUser = useCurrentUser();
 
   return (
-    <nav className="fixed w-full h-24 shadow-xl bg-white">
+    <nav className="w-full h-24 shadow-xl bg-white">
       <div className="flex justify-between items-center h-full w-full px-4 2x1:px-16">
         <Link href="/">
           Home
         </Link>
         <div>
           <ul className="hiddem sm:flex">
+            <Link href="/student/all-posts">
+              <li className="ml-10 uppercase hover:border-b text-xl">Projects</li>
+            </Link>
             <Link href="/why-us">
               <li className="ml-10 uppercase hover:border-b text-xl">Why us</li>
             </Link>
@@ -65,12 +64,42 @@ const NavBar = () => {
         </div>
         <div className="flex-col py-4">
           <ul>
-            <Link href="">
+            <Link href="/">
               <li onClick={() => setMenuOpen(false)}>
                 Home
               </li>
             </Link>
-
+            <Link href="/student/all-posts">
+            <li onClick={() => setMenuOpen(false)}>
+                Projects
+              </li>
+            </Link>
+            <Link href="/why-us">
+              <li onClick={() => setMenuOpen(false)}>
+                Why us
+              </li>
+            </Link>
+            <Link href="/about">
+              <li onClick={() => setMenuOpen(false)}>
+                About
+              </li>
+            </Link>
+            {currentUser && (
+              <li className="mx-10 uppercase hover:border-b text-xl hover:cursor-pointer"
+              onClick={() => {
+                logout();
+                setMenuOpen(false);
+              }}>
+                Sign Out
+              </li>
+            )}
+            {!currentUser && (
+              <Link href="">
+                <li onClick={() => setMenuOpen(false)}>
+                  Home
+                </li>
+              </Link>
+            )}
           </ul>
         </div>
       </div>

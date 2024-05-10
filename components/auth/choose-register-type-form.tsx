@@ -7,7 +7,7 @@ export const ChooseRegisterTypeForm = () => {
         <LargeCardWrapper
         headerLabel="Choose what type of account you want"
         backButtonHref="/auth/login"
-        backButtonLabel="Back to login"
+        backButtonLabel="Already have an account?"
         headerTitle="Register">
             <div className="w-full flex justify-center items-center">
                 <div className="flex justify-center">
