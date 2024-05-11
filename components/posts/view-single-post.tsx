@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { FormError } from "../form-error";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface PostProps {
     id: string;
@@ -12,7 +15,7 @@ interface PostProps {
     company: string;
     creationTime: Date;
     expirationDate: Date | null;
-    userId: string;
+    businessId: string;
 }
 
 interface ViewSinglePostProps {
@@ -22,6 +25,11 @@ interface ViewSinglePostProps {
 export const ViewSinglePost = ({
     post
 }: ViewSinglePostProps) => {
+
+    const currentUser = useCurrentUser();
+
+    const isPostOwner = post?.businessId == currentUser?.id;
+    const editPostUrl = "/post/edit-post?id=" + post?.id;
 
     const [error, setError] = useState<string | undefined>("");
 
@@ -37,6 +45,13 @@ export const ViewSinglePost = ({
             </p>
         </CardHeader>
         <CardContent className="space-y-4">
+                {isPostOwner && (
+                    <Button>
+                        <Link href={editPostUrl}>
+                        Edit Post
+                        </Link>
+                    </Button>
+                )}
                 <div className="flex flex-row items-center justify-between
                 rounded-lg border p-3 shadow-sm">
                     <p className="text-sm font-medium">

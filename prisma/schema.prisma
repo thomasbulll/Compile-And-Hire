@@ -24,7 +24,8 @@ model Post {
   company        String
   creationTime   DateTime
   expirationDate DateTime?
-  businessId         String
+  businessId     String
+  interestedStudentIds String[]
 
   business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
 }
@@ -52,6 +53,7 @@ model User {
   isTwoFactorEnabled Boolean @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
   urls          String[]
+  interestedPostIds String[]
 }
 
 model Account {
