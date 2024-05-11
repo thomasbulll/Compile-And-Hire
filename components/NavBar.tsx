@@ -34,12 +34,19 @@ const NavBar = () => {
               <li className="ml-10 uppercase hover:border-b text-xl">About</li>
             </Link>
             {currentUser && (
-              <li className="mx-10 uppercase hover:border-b text-xl hover:cursor-pointer"
-              onClick={() => {
-                logout();
-              }}>
-                Sign Out
-              </li>
+              <Link href="/settings/profile">
+                <li className="ml-10 uppercase hover:border-b text-xl">My Profile</li>
+              </Link>
+            )}
+            {currentUser && (
+                <Link href="/">
+                  <li className="mx-10 uppercase hover:border-b text-xl hover:cursor-pointer"
+                  onClick={() => {
+                    logout();
+                  }}>
+                    Sign Out
+                  </li>
+                </Link>
             )}
             {!currentUser && (
               <Link href="/auth/choose-register-type">
