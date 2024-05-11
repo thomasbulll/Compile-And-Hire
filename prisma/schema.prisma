@@ -24,27 +24,23 @@ model Post {
   company        String
   creationTime   DateTime
   expirationDate DateTime?
-  userId         String
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   businessId         String
 
-//   business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
 }
 
-// model Business {
-//     id            String    @id @default(cuid())
-//     userId        String       @unique
-//     posts         Post[]
+model Business {
+    id            String    @id @default(cuid())
+    userId        String    @unique
+    name          String    @unique
+    posts         Post[]
 
-//     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-// }
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
+  name          String?   @unique
   bio           String?
   email         String?   @unique
   emailVerified DateTime?
@@ -52,8 +48,7 @@ model User {
   password      String?
   role          UserRole  @default(USER)
   accounts      Account[]
-  posts         Post[]
-  // business      Business?
+  business      Business?
   isTwoFactorEnabled Boolean @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
   urls          String[]

@@ -15,7 +15,7 @@ export const register = async (values: zod.infer<typeof RegisterSchema>) => {
         return {error: "Invalid fields!"};
     }
 
-    const { email, password, confirmPassword, name } = validatedFields.data;
+    const { email, password, confirmPassword, name, role } = validatedFields.data;
 
     if (password != confirmPassword) {
         return {
@@ -38,8 +38,32 @@ export const register = async (values: zod.infer<typeof RegisterSchema>) => {
             name,
             email,
             password: hashedPassword,
+            role: role as "ADMIN" | "USER" | "BUSINESS"
         }
     })
+
+    if (role == "BUSINESS") {
+        const user = await getUserByEmail(email);
+
+        if (!user) {
+            await db.user.delete({
+                where: {
+                    email: email
+                }
+            })
+            return {
+                error: "Unable to create business account"
+            };
+        }else{
+            await db.business.create({
+                data: {
+                    userId: user.id,
+                    name,
+                }
+            })
+        }
+        
+    }
 
     const verificationToken = await generateVerificationToken(email);
 

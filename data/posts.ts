@@ -1,8 +1,8 @@
 import { db } from "@/lib/db";
 
-export const postsByuserId = async (userId: string) => {
+export const postsByBusinessId = async (businessId: string) => {
     try{
-        const posts = await db.post.findMany({where: {userId}});
+        const posts = await db.post.findMany({where: {businessId}});
         return posts;
     } catch {
         return null;

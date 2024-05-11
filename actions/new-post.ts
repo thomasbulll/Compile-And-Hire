@@ -4,7 +4,9 @@ import * as zod from "zod";
 import { NewPostSchema } from "@/schemas";
 import { db } from "@/lib/db";
 import { getUserById } from "@/data/user";
-import { postsByuserId } from "@/data/posts";
+import { postsByBusinessId } from "@/data/posts";
+import { getBusinessByUserId } from "@/data/business";
+
 
 export const newPost = async (values: zod.infer<typeof NewPostSchema>) => {
     const validatedFields = NewPostSchema.safeParse(values);
@@ -25,7 +27,15 @@ export const newPost = async (values: zod.infer<typeof NewPostSchema>) => {
     //   return { error: "Only Business accounts can create posts!" };
     // }
 
-    const posts = await postsByuserId(userId)
+    const business = await getBusinessByUserId(userId);
+
+    if (!business) {
+      return {
+        error: "Business account not found"
+      }
+    }
+
+    const posts = await postsByBusinessId(business?.id)
     
     if (posts?.length && posts?.length >= 4) {
       return { error: "Maximum number of posts reached" }
@@ -46,7 +56,7 @@ export const newPost = async (values: zod.infer<typeof NewPostSchema>) => {
             company,
             creationTime: currentTime,
             expirationDate,
-            userId: existingUser.id
+            businessId: existingUser.id
           }
         });
         return {
