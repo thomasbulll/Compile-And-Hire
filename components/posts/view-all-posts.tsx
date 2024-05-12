@@ -14,7 +14,7 @@ interface PostProps {
     company: string;
     creationTime: Date;
     expirationDate: Date | null;
-    userId: string;
+    businessId: string;
 }
 
 interface ViewAllPostsProps {
