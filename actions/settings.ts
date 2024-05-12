@@ -1,14 +1,20 @@
 "use server";
 
 import * as zod from "zod";
-import { SettingsSchema, UpdateSettingsSchema } from "@/schemas";
+import { StudentSettingsSchema, UpdateSettingsSchema, BusinessSettingsSchema } from "@/schemas";
 import { db } from "@/lib/db";
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 
-export const settings = async (
-    values:  zod.infer<typeof SettingsSchema>
+export const StudentSettings = async (
+    values:  zod.infer<typeof StudentSettingsSchema>
 ) => {
+
+    const validatedFields = StudentSettingsSchema.safeParse(values);
+
+    if (!validatedFields.success) {
+        return {error: "Invalid fields!"};
+    }
 
     const user = await currentUser();
 
@@ -48,4 +54,45 @@ export const settings = async (
     })
 
     return { success: "Settings Updated!" };
+}
+
+
+export const BusinessSettings = async (
+    values:  zod.infer<typeof BusinessSettingsSchema>
+) => {
+
+    const validatedFields = BusinessSettingsSchema.safeParse(values);
+
+    if (!validatedFields.success) {
+        return {error: "Invalid fields!"};
+    }
+
+    const user = await currentUser();
+
+    if (!user) {
+        return { error: "Unauthorized! "}
+    };
+
+    const dbUser = await getUserById(user.id || "");
+
+    if (!dbUser) {
+        return { error: "Unauthorized! "}
+    };
+
+    if (dbUser.role == "USER") {
+        return { error: "Unauthorized! "}
+    }
+
+    await db.user.update({
+        where: {id: dbUser.id },
+        data: {
+            ...values,
+        }
+    }).then(() => {
+        console.log("UPDATED");
+    }
+    )
+
+    return { success: "Settings Updated!" };
+
 }
