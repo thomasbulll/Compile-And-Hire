@@ -4,8 +4,11 @@ import {
     apiAuthPrefix,
     authRoutes,
     publicRoutes,
+    businessRoutes,
     DEFAULT_LOGIN_REDIRECT,
+    DEFAULT_NON_LOGGED_IN_REDIRECT
 } from "@/routes"
+import { useCurrentUser } from "./hooks/use-current-user";
 
 const {auth} = NextAuth(authConfig);
 
@@ -16,6 +19,7 @@ export default auth((req) => {
     const isApiAuthRoute = nextPathName.startsWith(apiAuthPrefix);
     const isPublicRoute = publicRoutes.includes(nextPathName);
     const isAuthRoute = authRoutes.includes(nextPathName);
+    const isBusinessRoute = businessRoutes.includes(nextPathName);
 
     if (isApiAuthRoute) {
         return;
@@ -26,6 +30,17 @@ export default auth((req) => {
             return Response.redirect(new URL
                 (DEFAULT_LOGIN_REDIRECT, nextUrl))
         }
+        return;
+    }
+
+    if (isBusinessRoute){
+        if (!isLoggedIn){
+            return Response.redirect(new URL
+                (DEFAULT_NON_LOGGED_IN_REDIRECT, nextUrl))
+        }
+        
+        //TODO: If account is not a business account, redirect.
+
         return;
     }
 

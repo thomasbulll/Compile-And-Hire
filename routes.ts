@@ -20,13 +20,25 @@ export const authRoutes = [
 ]
 
 /**
+ * An array of routes that are used by businesses
+ */
+export const businessRoutes = [
+    "/post/edit-post",
+    "/post/my-posts",
+    "/post/new-post",
+]
+
+/**
  * The prefix for API authentication routes.
  * Routes that start with this prefix are used for API
  * authentication purposes
  */
-export const apiAuthPrefix = "/api/auth"
+export const apiAuthPrefix = "/api/auth";
 
 /**
  * The default redirect path post login
  */
-export const DEFAULT_LOGIN_REDIRECT = "/settings/profile"
+export const DEFAULT_LOGIN_REDIRECT = "/settings/profile";
+
+export const DEFAULT_NON_LOGGED_IN_REDIRECT = "/";
+
