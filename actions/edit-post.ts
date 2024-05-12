@@ -24,9 +24,9 @@ export const editPost = async (
         return { error: "No Pre-existing post! "}
     };
 
-    if (existingPost.userId != user.id) {
-        return { error: "You are not the post's owner!"}
-    };
+    // if (existingPost.userId != user.id) {
+    //     return { error: "You are not the post's owner!"}
+    // };
 
     await db.post.update({
         where: {id: postId },

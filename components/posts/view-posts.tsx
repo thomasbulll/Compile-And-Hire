@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { BusinessPost } from "@/components/posts/business-post";
 import { FormError } from "../form-error";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface PostProps {
     id: string;
@@ -13,17 +15,17 @@ interface PostProps {
     company: string;
     creationTime: Date;
     expirationDate: Date | null;
-    userId: string;
+    businessId: string;
 }
 
 interface UserPostsProps {
-    userId: string
+    businessId: string
     companyName: string;
     posts: PostProps[] | null;
 }
 
 export const UserPosts = ({
-    userId,
+    businessId,
     companyName,
     posts
 }: UserPostsProps) => {
@@ -31,36 +33,7 @@ export const UserPosts = ({
     const [error, setError] = useState<string | undefined>("");
 
     if (!posts) {
-        setError("No posts found")
-    }else{
-        for (let i=0; i < posts?.length; i++) {
-            if (posts[i].userId != userId){
-                setError("Error: ID Mismatch");
-                return (
-                    <Card className="w-[600px] shadow-md">
-                    <CardHeader>
-                        <p className="text-2xl font-semibold text-center">
-                            {companyName} Posts
-                        </p>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        {posts?.map((post) => (
-                            <BusinessPost
-                            id={post.id}
-                            key={post.id}
-                            title={post.title}
-                            description={post.description}
-                            company={post.company}
-                            compensation={post.compensation}
-                            creationTime={post.creationTime}
-                            expirationDate={post.expirationDate}/>
-                        ))}
-                        <FormError message={error} />
-                    </CardContent>
-                </Card>
-                );
-            }
-        }
+        setError("Error finding posts")
     }
 
     return (
@@ -83,6 +56,13 @@ export const UserPosts = ({
                 expirationDate={post.expirationDate}/>
             ))}
             <FormError message={error} />
+            <div className="text-center">
+                <Link className="" href="/post/new-post">
+                    <Button>
+                    New Post
+                    </Button>
+                </Link>
+            </div>
         </CardContent>
     </Card>
     )    

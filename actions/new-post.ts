@@ -23,9 +23,9 @@ export const newPost = async (values: zod.infer<typeof NewPostSchema>) => {
       return { error: "User does not exist" };
     }
 
-    // if (existingUser.role == "USER") {
-    //   return { error: "Only Business accounts can create posts!" };
-    // }
+    if (existingUser.role == "USER") {
+      return { error: "Only Business accounts can create posts!" };
+    }
 
     const business = await getBusinessByUserId(userId);
 
@@ -56,7 +56,7 @@ export const newPost = async (values: zod.infer<typeof NewPostSchema>) => {
             company,
             creationTime: currentTime,
             expirationDate,
-            businessId: existingUser.id
+            businessId: business.id
           }
         });
         return {

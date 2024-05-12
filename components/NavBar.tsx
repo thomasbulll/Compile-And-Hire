@@ -16,6 +16,8 @@ const NavBar = () => {
 
   const currentUser = useCurrentUser();
 
+  const isBusiness = currentUser?.role == "BUSINESS"
+
   return (
     <nav className="w-full h-24 shadow-xl bg-white">
       <div className="flex justify-between items-center h-full w-full px-4 2x1:px-16">
@@ -33,6 +35,11 @@ const NavBar = () => {
             <Link href="/about">
               <li className="ml-10 uppercase hover:border-b text-xl">About</li>
             </Link>
+            {isBusiness && (
+              <Link href="/post/my-posts">
+                <li className="ml-10 uppercase hover:border-b text-xl">My Projects</li>
+              </Link>
+            )}
             {currentUser && (
               <Link href="/settings/profile">
                 <li className="ml-10 uppercase hover:border-b text-xl">My Profile</li>
