@@ -1,8 +1,11 @@
 import { db } from "@/lib/db";
 
 export const getBusinessByUserId = async (
-    userId: string
+    userId: string | undefined
 ) => {
+    if (!userId) {
+        return null;
+    }
     try {
         const business = await db.business.findUnique({
             where: {
