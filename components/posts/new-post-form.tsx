@@ -31,6 +31,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { newPost } from "@/actions/new-post";
+import { Textarea } from "@/components/ui/textarea";
 
 export const NewPostForm = () => {
 
@@ -103,10 +104,10 @@ export const NewPostForm = () => {
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Input
-                                        {...field}
-                                        disabled={isPending}
-                                        placeholder="details about your awesome project!"
+                                        <Textarea
+                                             placeholder="details about your awesome project!"
+                                            disabled={isPending}
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage/>
@@ -125,7 +126,7 @@ export const NewPostForm = () => {
                                         <Button
                                             variant={"outline"}
                                             className={cn(
-                                                "w-[240px] pl-3 text-left font-normal",
+                                                "pl-3 text-left font-normal",
                                                 !field.value && "text-muted-foreground"
                                             )}
                                             >

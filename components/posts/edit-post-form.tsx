@@ -34,6 +34,7 @@ import { CalendarIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns";
 import { useSearchParams } from "next/navigation";
+import { Textarea } from "@/components/ui/textarea";
 
 interface PostProps {
     id: string;
@@ -82,7 +83,7 @@ export const EditPostForm = () => {
     }
 
     return (
-        <div className="flex main justify-center items-center xl:flex-row flex-col gap-5 pt-36">
+        <div className="flex main justify-center items-center xl:flex-row flex-col gap-5">
             <Card className="w-[600px]">
                 <CardHeader>
                     <p className="text-2xl font-semibold text-center">
@@ -118,13 +119,14 @@ export const EditPostForm = () => {
                                 render={({ field }) => {
                                     return <FormItem>
                                         <FormLabel>
-                                            Compensation
+                                            Description
                                         </FormLabel>
                                         <FormControl>
-                                            <Input
-                                                {...field}
-                                                placeholder={ "Description"}
-                                                disabled={isPending} />
+                                        <Textarea
+                                            placeholder={ "Description"}
+                                            disabled={isPending}
+                                            {...field}
+                                        />
                                         </FormControl>
                                     </FormItem>;
                                 }}
@@ -158,7 +160,7 @@ export const EditPostForm = () => {
                                         <Button
                                             variant={"outline"}
                                             className={cn(
-                                                "w-[240px] pl-3 text-left font-normal",
+                                                "pl-3 text-left font-normal",
                                                 !field.value && "text-muted-foreground"
                                             )}
                                             >
