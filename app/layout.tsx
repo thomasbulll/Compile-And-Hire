@@ -8,6 +8,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Compile and Hire",
   description: "Driving the connection between computer science students and employers",
+  icons: {
+    icon: "/mini-logo.png",
+  },
 };
 
 export default async function RootLayout({
