@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 import { logout } from '@/actions/logout';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { useCurrentUser } from '@/hooks/use-current-user';
@@ -22,7 +23,12 @@ const NavBar = () => {
     <nav className="w-full h-24 shadow-xl bg-white">
       <div className="flex justify-between items-center h-full w-full px-4 2x1:px-16">
         <Link href="/">
-          Home
+          <Image
+          src="/main-logo.png"
+          alt="Compile And Hire Logo"
+          width={110}
+          height={20}
+          className="object-contain"/>
         </Link>
         <div>
           <ul className="hiddem sm:flex">
