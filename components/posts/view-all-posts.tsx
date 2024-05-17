@@ -42,18 +42,19 @@ export const ViewAllPosts = ({
         </CardHeader>
         <CardContent className="space-y-4">
             {posts?.map((post, index) => (
-            <Link href={postUrls[index]} key={post.id}>
-                    <GenericPost
-                    id={post.id}
-                    key={post.id}
-                    title={post.title}
-                    description={post.description}
-                    company={post.company}
-                    compensation={post.compensation}
-                    creationTime={post.creationTime}
-                    expirationDate={post.expirationDate}/>
-                </Link>
-                
+                <div className="pt-3">
+                    <Link href={postUrls[index]} key={post.id}>
+                        <GenericPost
+                        id={post.id}
+                        key={post.id}
+                        title={post.title}
+                        description={post.description}
+                        company={post.company}
+                        compensation={post.compensation}
+                        creationTime={post.creationTime}
+                        expirationDate={post.expirationDate}/>
+                    </Link>
+                </div>
             ))}
             <FormError message={error} />
         </CardContent>
