@@ -8,6 +8,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Trash2 } from "lucide-react";
+import { useState } from "react";
 
 interface PostProps {
     id: string;
@@ -31,16 +33,24 @@ export const BusinessPost = ({
 
     const editPostUrl = "/post/edit-post?id=" + id;
 
+    const [deleteConfirmed, setDeleteConfirmed] = useState(false);
+
     return (
         <div className="post bg-white rounded-lg shadow-md overflow-hidden">
         <div className="p-4">
           <div className="pt-2 flex justify-between">
             <h3 className="text-xl font-bold text-gray-800">{title}</h3>
-            <Button>
-              <Link href={editPostUrl}>
-                Edit Post
-              </Link>
-            </Button>
+            <div>
+              <Button>
+                <Link href={editPostUrl}>
+                  Edit Post
+                </Link>
+              </Button>
+              <Button variant={"destructive"}>
+                <span className="pr-1">Delete</span>
+                <Trash2/>
+              </Button>
+            </div>
           </div>
           <div className="flex items-center mb-2">
             <p className="text-gray-700 mr-2">at {company}</p>
