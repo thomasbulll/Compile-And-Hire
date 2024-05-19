@@ -9,8 +9,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Trash2 } from "lucide-react";
-import { useState } from "react";
-import DeleteConfirm from "@/components/posts/delete-confirm";
+import { useState, useTransition } from "react";
+import { deletePost } from "@/actions/delete-post";
+import { FormSuccess } from "../form-success";
+import { FormError } from "../form-error";
+import { DeletePostSchema } from "@/schemas/index";
+import * as zod from "zod";
+import { zodResolver} from "@hookform/resolvers/zod";
+import {useForm} from "react-hook-form";
 
 interface PostProps {
     id: string;
@@ -20,6 +26,7 @@ interface PostProps {
     company: string;
     creationTime: Date;
     expirationDate: Date | null;
+    businessId: string;
 }
 
 export const BusinessPost = ({
@@ -30,20 +37,38 @@ export const BusinessPost = ({
     company,
     creationTime,
     expirationDate,
+    businessId
 }: PostProps) => {
 
     const editPostUrl = "/post/edit-post?id=" + id;
 
     const [deleteConfirmed, setDeleteConfirmed] = useState(false);
-    const [itemIdToDeleted, setItemIdToDeleted] = useState<string | null>(null);
 
-    const handleDeleteClick = (id: string) => {
-      setItemIdToDeleted(id);
-      setDeleteConfirmed(true);
-    };
+    const [error, setError] = useState<string | undefined>("");
+    const [success, setSuccess] = useState<string | undefined>("");
+    const [isPending, startTransition] = useTransition();
 
-    const deletePost = () => {
-      console.log("Delete clicked");
+    const deletePostForm = useForm<zod.infer<typeof DeletePostSchema>>({
+      resolver: zodResolver(DeletePostSchema),
+      defaultValues: {
+          postId: id,
+          businessId: businessId,
+      }
+  })
+
+    const onDeleteClicked = (values: zod.infer<typeof DeletePostSchema>) => {
+        setError("");
+        setSuccess("");
+        startTransition(() => {
+          deletePost(values).then((data) => {
+                if (data?.error) {
+                    setError(data?.error);
+                }
+                if (data?.success) {
+                    setSuccess(data?.success);
+                }
+            }).catch(() => setError("Something went wrong."))
+        });
     }
 
     return (
@@ -51,8 +76,13 @@ export const BusinessPost = ({
           {deleteConfirmed && 
             <div>
               <p>Are you sure you want to delete item {title}?</p>
-              <Button onClick={() => deletePost()}>Confirm Delete</Button>
-              <Button onClick={() => setDeleteConfirmed(false)}>Cancel</Button>
+              <Button disabled={isPending} 
+              onClick={deletePostForm.handleSubmit(onDeleteClicked)}>
+                Confirm Delete
+              </Button>
+              <Button onClick={() => setDeleteConfirmed(false)}>
+                Cancel
+              </Button>
             </div>
           }
           {!deleteConfirmed && 
@@ -67,11 +97,10 @@ export const BusinessPost = ({
                   </Link>
                 </Button>
                 <Button variant={"destructive"}
-                  onClick={() => handleDeleteClick(id)}>
+                  onClick={() => setDeleteConfirmed(true)}>
                   <span className="pr-1">Delete</span>
                   <Trash2/>
                 </Button>
-                
               </div>
             </div>
             <div className="flex items-center mb-2">
@@ -101,6 +130,8 @@ export const BusinessPost = ({
           </div>
         </div>
         }
+        <FormError message={error} />
+        <FormSuccess message={success} />
       </div>
     );
 }

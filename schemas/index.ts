@@ -93,3 +93,9 @@ export const EditPostSchema = zod.object({
     })),
     expirationDate: zod.optional(zod.date())
 });
+
+
+export const DeletePostSchema = zod.object({
+    postId: zod.string(),
+    businessId: zod.string(),
+});

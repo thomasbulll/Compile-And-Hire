@@ -53,7 +53,8 @@ export const UserPosts = ({
                 company={post.company}
                 compensation={post.compensation}
                 creationTime={post.creationTime}
-                expirationDate={post.expirationDate}/>
+                expirationDate={post.expirationDate}
+                businessId={businessId}/>
             ))}
             <FormError message={error} />
             <div className="text-center">

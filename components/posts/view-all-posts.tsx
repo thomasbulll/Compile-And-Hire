@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { GenericPost } from "@/components/posts/generic-post";
 import { FormError } from "../form-error";
 import Link from "next/link";
-import { Trash2 } from "lucide-react";
 
 interface PostProps {
     id: string;
