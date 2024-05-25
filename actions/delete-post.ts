@@ -2,7 +2,7 @@
 
 import * as zod from "zod";
 import { db } from "@/lib/db";
-import { postById, postsByBusinessId } from "@/data/posts";
+import { getPostById, postsByBusinessId } from "@/data/posts";
 import { getBusinessByBusinessId } from "@/data/business";
 import { DeletePostSchema } from "@/schemas";
 
@@ -24,7 +24,7 @@ export const deletePost = async (values: zod.infer<typeof DeletePostSchema>) => 
       }
     }
 
-    const post = await postById(postId);
+    const post = await getPostById(postId);
 
     if (post?.businessId != businessId) {
         return {

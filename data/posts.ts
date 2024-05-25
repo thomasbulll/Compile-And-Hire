@@ -12,10 +12,18 @@ export const postsByBusinessId = async (businessId: string | undefined) => {
     }
 }
 
-export const postById = async (id: string) => {
+export const getPostById = async (postId: string | null) => {
+    if (!postId) {
+        console.log("Invalid ID")
+        return null;
+    }
     try{
-        const posts = await db.post.findUnique({where: {id}});
-        return posts;
+        const post = await db.post.findUnique({where: {
+            id: postId
+            }
+        });
+        console.log(post?.title)
+        return post;
     } catch {
         return null;
     }

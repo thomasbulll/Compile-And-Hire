@@ -1,10 +1,7 @@
 import { ViewAllPosts } from "@/components/posts/view-all-posts";
 import { getMostRecentPosts } from "@/data/posts";
-import { currentUser } from "@/lib/auth";
 
 const AllPostsPage = async () => {
-    const user = await currentUser();
-
     const posts = await getMostRecentPosts();
 
     return (
