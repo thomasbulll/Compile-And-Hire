@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { FormError } from "../form-error";
-import { Button } from "../ui/button";
-import { UserRole } from "@prisma/client";
+import { FormError } from "@/components/form-error";
+import { FormSuccess } from "@/components/form-success";
+import { Button } from "@/components/ui/button";
+import { registerProjectInterest } from "@/actions/register-user-interest";
 
 interface PostProps {
     id: string;
@@ -15,6 +16,7 @@ interface PostProps {
     creationTime: Date;
     expirationDate: Date | null;
     businessId: string;
+    interestedStudentIds: string[];
 }
 
 interface ViewSinglePostProps {
@@ -29,9 +31,10 @@ export const ViewSinglePost = ({
     userRole
 }: ViewSinglePostProps) => {
 
-    const currentTime = new Date();
+    const [isPending, startTransition] = useTransition();
 
-    const postExists = !!post?.expirationDate
+
+    const currentTime = new Date();
 
     let postExpired = false
     if (post?.expirationDate && post.expirationDate < currentTime) {
@@ -39,10 +42,25 @@ export const ViewSinglePost = ({
     }
     
     const [error, setError] = useState<string | undefined>("");
+    const [success, setSuccess] = useState<string | undefined>("");
 
     if (!post) {
         setError("Error fetching post")
     };
+
+
+    const registerUserInterest = () => {
+        startTransition(() => {
+            registerProjectInterest(userRole, userId, post?.id, post?.interestedStudentIds).then((data) => {
+                if (data?.error) {
+                    setError(data?.error);
+                }
+                if (data?.success) {
+                    setSuccess(data?.success);
+                }
+            }).catch(() => setError("Something went wrong."))
+        });
+    }
     
     return (
         <Card className="w-[600px] shadow-md">
@@ -115,11 +133,18 @@ export const ViewSinglePost = ({
                     </div>
                 )}
                 {userRole == "USER" && (
-                    <Button  onClick={() => console.log("btn clicked")}>
-                        Register your interest.
+                    <Button
+                        className="w-full"  
+                        disabled = {isPending}
+                        onClick={() => {
+                            registerUserInterest()
+                        }
+                    }>
+                        Register your interest
                     </Button>
                 )}
                 <FormError message={error} />
+                <FormSuccess message={success} />
             </CardContent>
     </Card>
     );
