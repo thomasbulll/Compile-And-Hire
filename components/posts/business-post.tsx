@@ -53,6 +53,8 @@ export const BusinessPost = ({
 
     const hasInterestedStudents = interestedStudentIds.length >= 1
 
+    const interestedStudentUrls = interestedStudentIds ? interestedStudentIds.map((id) => `/student/view-profile?id=${id}`) : [];
+
     const deletePostForm = useForm<zod.infer<typeof DeletePostSchema>>({
       resolver: zodResolver(DeletePostSchema),
       defaultValues: {
@@ -150,7 +152,15 @@ export const BusinessPost = ({
             </div>
           ): (
             <div>
-              interested students
+              {interestedStudentIds?.map((id, index) => (
+                <div className="pt-3">
+                    <Link href={interestedStudentUrls[index]} key={id}>
+                      <p className="text-1x1 font-semibold pb-5 pl-10">
+                        Student {index + 1}
+                      </p>
+                    </Link>
+                </div>
+            ))}
               <div className="pb-2 text-center">
                 <Button
                 onClick={() => setShowInterested(false)}>
@@ -159,13 +169,10 @@ export const BusinessPost = ({
               </div>
             </div>
           )}
-          
         </div>
         }
         <FormError message={error} />
         <FormSuccess message={success} />
-        
-        
       </div>
     );
 }
