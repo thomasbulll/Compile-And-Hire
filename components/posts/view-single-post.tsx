@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { FormError } from "../form-error";
+import { Button } from "../ui/button";
+import { UserRole } from "@prisma/client";
 
 interface PostProps {
     id: string;
@@ -17,12 +19,25 @@ interface PostProps {
 
 interface ViewSinglePostProps {
     post: PostProps | null;
+    userId: string | undefined;
+    userRole: "ADMIN" | "USER" | "BUSINESS" | undefined;
 }
 
 export const ViewSinglePost = ({
-    post
+    post,
+    userId,
+    userRole
 }: ViewSinglePostProps) => {
 
+    const currentTime = new Date();
+
+    const postExists = !!post?.expirationDate
+
+    let postExpired = false
+    if (post?.expirationDate && post.expirationDate < currentTime) {
+        postExpired = true;
+    }
+    
     const [error, setError] = useState<string | undefined>("");
 
     if (!post) {
@@ -80,16 +95,29 @@ export const ViewSinglePost = ({
                         </p>
                     </div>
                 {post?.expirationDate && (
+                    
                     <div className="flex flex-row items-center justify-between
                     rounded-lg border p-3 shadow-sm">
                         <p className="text-sm font-medium">
                             Expiration Date
                         </p>
-                        <p className="truncate text-xs max--w-[180px]
-                        font-mono p-1 bg-slate-100 rounded-md">
-                            {post?.expirationDate.toLocaleDateString()}
-                        </p>
+                        {postExpired ? (
+                            <p className="truncate text-xs max--w-[180px]
+                            font-mono p-1 bg-red-300 rounded-md">
+                                {post?.expirationDate.toLocaleDateString()}
+                            </p>
+                        ) : (
+                            <p className="truncate text-xs max--w-[180px]
+                            font-mono p-1 bg-slate-100 rounded-md">
+                                {post?.expirationDate.toLocaleDateString()}
+                            </p>
+                        )}
                     </div>
+                )}
+                {userRole == "USER" && (
+                    <Button  onClick={() => console.log("btn clicked")}>
+                        Register your interest.
+                    </Button>
                 )}
                 <FormError message={error} />
             </CardContent>
