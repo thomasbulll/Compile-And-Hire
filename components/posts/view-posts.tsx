@@ -16,6 +16,7 @@ interface PostProps {
     creationTime: Date;
     expirationDate: Date | null;
     businessId: string;
+    interestedStudentIds: string[];
 }
 
 interface UserPostsProps {
@@ -54,7 +55,8 @@ export const UserPosts = ({
                 compensation={post.compensation}
                 creationTime={post.creationTime}
                 expirationDate={post.expirationDate}
-                businessId={businessId}/>
+                businessId={businessId}
+                interestedStudentIds={post.interestedStudentIds}/>
             ))}
             <FormError message={error} />
             <div className="text-center">

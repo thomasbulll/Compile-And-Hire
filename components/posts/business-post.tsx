@@ -27,6 +27,7 @@ interface PostProps {
     creationTime: Date;
     expirationDate: Date | null;
     businessId: string;
+    interestedStudentIds: string[]
 }
 
 export const BusinessPost = ({
@@ -37,7 +38,8 @@ export const BusinessPost = ({
     company,
     creationTime,
     expirationDate,
-    businessId
+    businessId,
+    interestedStudentIds
 }: PostProps) => {
 
     const editPostUrl = "/post/edit-post?id=" + id;
@@ -46,7 +48,10 @@ export const BusinessPost = ({
 
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
+    const [showInterested, setShowInterested] = useState<boolean | undefined>(false);
     const [isPending, startTransition] = useTransition();
+
+    const hasInterestedStudents = interestedStudentIds.length >= 1
 
     const deletePostForm = useForm<zod.infer<typeof DeletePostSchema>>({
       resolver: zodResolver(DeletePostSchema),
@@ -54,7 +59,7 @@ export const BusinessPost = ({
           postId: id,
           businessId: businessId,
       }
-  })
+    })
 
     const onDeleteClicked = (values: zod.infer<typeof DeletePostSchema>) => {
         setError("");
@@ -98,7 +103,7 @@ export const BusinessPost = ({
                 </Button>
                 <Button variant={"destructive"}
                   onClick={() => setDeleteConfirmed(true)}>
-                  <span className="pr-1">Delete</span>
+                  <span>Delete</span>
                   <Trash2/>
                 </Button>
               </div>
@@ -128,10 +133,39 @@ export const BusinessPost = ({
               )}
             </div>
           </div>
+          {!showInterested ? (
+            <div>
+              {hasInterestedStudents ? (
+                <div className="pb-2 text-center">
+                  <Button
+                  onClick={() => setShowInterested(true)}>
+                    See Interested Users
+                  </Button>
+                </div>
+                ) : (
+                  <p className="text-1x1 font-semibold text-center pb-2">
+                      No interested students yet.
+                  </p>
+                )}
+            </div>
+          ): (
+            <div>
+              interested students
+              <div className="pb-2 text-center">
+                <Button
+                onClick={() => setShowInterested(false)}>
+                  Hide Interested Users
+                </Button>
+              </div>
+            </div>
+          )}
+          
         </div>
         }
         <FormError message={error} />
         <FormSuccess message={success} />
+        
+        
       </div>
     );
 }

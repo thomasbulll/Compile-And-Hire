@@ -5,7 +5,7 @@ import { EditPostSchema } from "@/schemas";
 import { db } from "@/lib/db";
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
-import { postById } from "@/data/posts";
+import { getPostById } from "@/data/posts";
 
 export const editPost = async (
     values:  zod.infer<typeof EditPostSchema>
@@ -18,7 +18,7 @@ export const editPost = async (
 
     const postId = values.id;
 
-    const existingPost = await postById(postId);
+    const existingPost = await getPostById(postId);
 
     if (!existingPost) {
         return { error: "No Pre-existing post! "}
