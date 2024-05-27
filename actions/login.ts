@@ -3,7 +3,7 @@
 import * as zod from "zod";
 import { LoginSchema } from "@/schemas";
 import { signIn } from "@/auth";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { DEFAULT_NON_LOGGED_IN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { generateVerificationToken, generateTwoFactorToken } from "@/lib/tokens";
 import { getUserByEmail } from "@/data/user";
@@ -86,7 +86,7 @@ export const login = async (
         await signIn("credentials", {
             email,
             password,
-            redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
+            redirectTo: callbackUrl || DEFAULT_NON_LOGGED_IN_REDIRECT,
         })
     } catch (error) {
         if (error instanceof AuthError) {

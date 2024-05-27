@@ -38,7 +38,9 @@ export const apiAuthPrefix = "/api/auth";
 /**
  * The default redirect path post login
  */
-export const DEFAULT_LOGIN_REDIRECT = "/settings/profile";
+export const DEFAULT_STUDENT_LOGIN_REDIRECT = "/settings/student-profile";
+
+export const DEFAULT_BUSINESS_LOGIN_REDIRECT = "/settings/business-profile";
 
 export const DEFAULT_NON_LOGGED_IN_REDIRECT = "/";
 

@@ -5,7 +5,8 @@ import {
     authRoutes,
     publicRoutes,
     businessRoutes,
-    DEFAULT_LOGIN_REDIRECT,
+    DEFAULT_STUDENT_LOGIN_REDIRECT,
+    DEFAULT_BUSINESS_LOGIN_REDIRECT,
     DEFAULT_NON_LOGGED_IN_REDIRECT
 } from "@/routes"
 import { useCurrentUser } from "./hooks/use-current-user";
@@ -15,6 +16,8 @@ const {auth} = NextAuth(authConfig);
 export default auth((req) => {
     const { nextUrl } = req;
     const isLoggedIn = !!req.auth;
+    //TODO: Find how to get the role where it isnt undefined
+    // const userRole = req.auth?.user.role
     const nextPathName = nextUrl.pathname;
     const isApiAuthRoute = nextPathName.startsWith(apiAuthPrefix);
     const isPublicRoute = publicRoutes.includes(nextPathName);
@@ -27,8 +30,12 @@ export default auth((req) => {
 
     if (isAuthRoute) {
         if (isLoggedIn){
+            // if (isBusinessLoggedIn) {
+            //     return Response.redirect(new URL
+            //         (DEFAULT_BUSINESS_LOGIN_REDIRECT, nextUrl))
+            // }
             return Response.redirect(new URL
-                (DEFAULT_LOGIN_REDIRECT, nextUrl))
+                (DEFAULT_STUDENT_LOGIN_REDIRECT, nextUrl))
         }
         return;
     }
@@ -38,9 +45,11 @@ export default auth((req) => {
             return Response.redirect(new URL
                 (DEFAULT_NON_LOGGED_IN_REDIRECT, nextUrl))
         }
+        // if (!isBusinessLoggedIn) {
+        //     return Response.redirect(new URL
+        //         (DEFAULT_NON_LOGGED_IN_REDIRECT, nextUrl))
+        // }
         
-        //TODO: If account is not a business account, redirect.
-
         return;
     }
 
