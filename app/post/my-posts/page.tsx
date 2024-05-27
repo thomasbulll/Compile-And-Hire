@@ -6,10 +6,10 @@ import { redirect } from 'next/navigation'
 
 const ServerPage = async () => {
     const user = await currentUser();
-    const isUserBusiness = user?.role == "BUSINESS"
+    const isUserBusiness = user?.role == "BUSINESS";
 
     if (!isUserBusiness) {
-        redirect('/')
+        redirect('/');
     }
 
     const business = await getBusinessByUserId(user?.id)

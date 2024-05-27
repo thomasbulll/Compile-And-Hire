@@ -50,7 +50,7 @@ export const {
         session.user.name = token.name;
         session.user.isOauth = token.isOAuth as boolean;
         session.user.bio = token.bio as string;
-        session.user.urls = token.urls as string[];
+        session.user.urls = token.urls as string;
 
       }
 

@@ -6,7 +6,11 @@ import { redirect } from 'next/navigation'
 const EditPostPage = async () => {
     const user = await currentUser();
 
-    const isUserBusiness = user?.role == "BUSINESS"
+    const isUserBusiness = user?.role == "BUSINESS";
+
+    if (!isUserBusiness) {
+        redirect('/');
+    }
 
     return (
         <div className="flex main justify-center items-center xl:flex-row flex-col gap-5 pt-36">

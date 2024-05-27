@@ -9,7 +9,6 @@ import { currentUser } from "@/lib/auth";
 
 const SinglePostPage = async () => {
 
-    
     const searchParams = useSearchParams();
   
     const postId = searchParams.get("id");
