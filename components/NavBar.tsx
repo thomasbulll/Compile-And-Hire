@@ -46,8 +46,12 @@ const NavBar = () => {
                 <li className="ml-10 uppercase hover:border-b text-xl">My Projects</li>
               </Link>
             )}
-            {currentUser && (
-              <Link href="/settings/profile">
+            {currentUser && isBusiness ? (
+              <Link href="/settings/business-profile">
+                <li className="ml-10 uppercase hover:border-b text-xl">My Profile</li>
+              </Link>
+            ) : (
+              <Link href="/settings/student-profile">
                 <li className="ml-10 uppercase hover:border-b text-xl">My Profile</li>
               </Link>
             )}
@@ -99,6 +103,19 @@ const NavBar = () => {
                 Why us
               </li>
             </Link>
+            {currentUser && isBusiness ? (
+              <Link href="/settings/business-profile">
+                <li onClick={() => setMenuOpen(false)}>
+                  My Profile
+                </li>
+              </Link>
+            ) : (
+              <Link href="/settings/student-profile">
+                <li onClick={() => setMenuOpen(false)}>
+                  My Profile
+                </li>
+              </Link>
+            )}
             <Link href="/about">
               <li onClick={() => setMenuOpen(false)}>
                 About
