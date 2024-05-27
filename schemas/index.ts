@@ -78,3 +78,16 @@ export const DeletePostSchema = zod.object({
     postId: zod.string(),
     businessId: zod.string(),
 });
+
+
+export const notificationsFormSchema = zod.object({
+    type: zod.enum(["all", "mentions", "none"], {
+      required_error: "You need to select a notification type.",
+    }),
+    mobile: zod.boolean().default(false).optional(),
+    communication_emails: zod.boolean().default(false).optional(),
+    social_emails: zod.boolean().default(false).optional(),
+    marketing_emails: zod.boolean().default(false).optional(),
+    security_emails: zod.boolean(),
+  })
+  
