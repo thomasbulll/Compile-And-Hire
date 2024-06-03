@@ -47,7 +47,7 @@ export const {
 
       if (session.user) {
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
-        session.user.name = token.name;
+        session.user.name = token.name as string;
         session.user.isOauth = token.isOAuth as boolean;
         session.user.bio = token.bio as string;
         session.user.urls = token.urls as string;

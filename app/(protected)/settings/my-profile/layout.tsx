@@ -52,7 +52,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
                 <div className="flex-1 lg:max-w-2xl">{children}</div>
                 </div>
             </div>
-            </Card>
+        </Card>
     </div>
   )
 }
