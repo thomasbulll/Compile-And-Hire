@@ -50,3 +50,12 @@ export const getInterestedStudentIds = async (postId: string | null) => {
         return null;
     }
 }
+
+export const getAllPostTags = async () => {
+    try{
+        const tags = await db.tag.findMany();
+        return tags
+    } catch {
+        return null;
+    }
+}

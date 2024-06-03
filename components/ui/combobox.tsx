@@ -20,13 +20,13 @@ import {
 
 interface ComboBoxProps {
     options: {label: string, value: string}[];
-    value?: string;
+    id?: string;
     onChange: (value: string) => void;
 }
  
 export const ComboBox = ({
     options,
-    value,
+    id,
     onChange
 }: ComboBoxProps) => {
   const [open, setOpen] = React.useState(false)
@@ -40,8 +40,8 @@ export const ComboBox = ({
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {value
-            ? options.find((option) => option.value === value)?.label
+          {id
+            ? options.find((option) => option.value === id)?.label
             : "Select tag"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -56,17 +56,17 @@ export const ComboBox = ({
                 key={option.value}
                 value={option.value}
                 onSelect={() => {
-                  onChange(option.value === value ? "" : option.value)
+                  onChange(option.value === id ? "" : option.value)
                   setOpen(false)
                 }}
               >
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    value === framework.value ? "opacity-100" : "opacity-0"
+                    id === option.value ? "opacity-100" : "opacity-0"
                   )}
                 />
-                {framework.label}
+                {option.label}
               </CommandItem>
             ))}
           </CommandGroup>

@@ -32,18 +32,20 @@ import {
 } from "@/components/ui/popover";
 import { newPost } from "@/actions/new-post";
 import { Textarea } from "@/components/ui/textarea";
+import { ComboBox } from "../ui/combobox";
+
 
 export const NewPostForm = () => {
 
-    const currentUser = useCurrentUser();
+    const user = useCurrentUser();
 
     const form = useForm<zod.infer<typeof NewPostSchema>>({
         resolver: zodResolver(NewPostSchema),
         defaultValues: {
             title: "",
             description: "",
-            company: currentUser?.name || "",
-            userId: currentUser?.id
+            company: user?.name || "",
+            userId: user?.id
         }
     })
 
