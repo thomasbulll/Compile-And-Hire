@@ -14,11 +14,10 @@ const ServerPage = async () => {
         redirect('/');
     }
 
-    console.log(tags);
-
     return (
         <div className="flex main justify-center items-center xl:flex-row flex-col gap-5 pt-36">
-            <NewPostForm />
+            <NewPostForm
+            tags={tags}/>
         </div>
     );
 };

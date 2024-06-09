@@ -32,10 +32,20 @@ import {
 } from "@/components/ui/popover";
 import { newPost } from "@/actions/new-post";
 import { Textarea } from "@/components/ui/textarea";
-import { ComboBox } from "../ui/combobox";
+import { ComboBox } from "@/components/ui/combobox";
 
+interface tagProps {
+    id: string;
+    label: string;
+}
 
-export const NewPostForm = () => {
+interface tagsProp {
+    tags: tagProps[] | undefined | null
+}
+
+export const NewPostForm = ({
+    tags
+}: tagsProp) => {
 
     const user = useCurrentUser();
 
@@ -189,6 +199,9 @@ export const NewPostForm = () => {
 
                 </form>
             </Form>
+            {/* <ComboBox
+                options={tags?.entries}
+            /> */}
         </CardWrapper>
     )
 }
