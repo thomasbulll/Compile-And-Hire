@@ -22,6 +22,7 @@ import { Button } from '@/components/ui/button';
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
+import { Social } from "./social";
 
 export const LoginForm = () => {
     const searchParams = useSearchParams();
@@ -65,12 +66,7 @@ export const LoginForm = () => {
     }
 
     return (
-        <CardWrapper
-        headerLabel="Welcome back!"
-        backButtonHref="/auth/choose-register-type"
-        backButtonLabel="Don't have an account?"
-        headerTitle="Login"
-        showSocial>
+        <>
             <Form {...form}>
                 <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -148,15 +144,25 @@ export const LoginForm = () => {
                     </div>
                     <FormError message={error || urlError} />
                     <FormSuccess message={success} />
+                    <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                            <span className="w-full border-t" />
+                        </div>
+                        <div className="relative flex justify-center text-xs uppercase">
+                            <span className="bg-background px-2 text-muted-foreground">
+                                Or continue with
+                            </span>
+                        </div>
+                    </div>
+                    <Social/>
                     <Button
                         disabled={isPending}
                         type="submit"
                         className="w-full">
                         {showTwoFactor ? "Confirm": "Login"}
                     </Button>
-
                 </form>
             </Form>
-        </CardWrapper>
+        </>
     )
 }
