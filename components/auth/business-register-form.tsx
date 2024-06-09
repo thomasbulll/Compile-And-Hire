@@ -3,7 +3,6 @@
 import { useState, useTransition } from "react";
 import * as zod from "zod";
 import { RegisterSchema } from "@/schemas";
-import { CardWrapper } from "./card-wrapper"
 import {useForm} from "react-hook-form";
 import { zodResolver} from "@hookform/resolvers/zod";
 import {
@@ -50,99 +49,92 @@ export const BusinessRegisterForm = () => {
     }
 
     return (
-        <CardWrapper
-        headerLabel="Create a business account"
-        backButtonHref="/auth/login"
-        backButtonLabel="Already have an account?"
-        headerTitle="Register">
-            <Form {...form}>
-                <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6">
-                    <div className="space-y-4">
-                        <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input
-                                    {...field}
-                                    disabled={isPending}
-                                    placeholder="email@example.com"
-                                    type="email"
-                                    />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                        />
-                        <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Company Name</FormLabel>
-                                <FormControl>
-                                    <Input
-                                    {...field}
-                                    disabled={isPending}
-                                    placeholder="username"
-                                    />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                        />
-                        <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Password</FormLabel>
-                                <FormControl>
-                                    <Input
-                                    {...field}
-                                    disabled={isPending}
-                                    placeholder="******"
-                                    type="password"
-                                    />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                        />
-                        <FormField
-                        control={form.control}
-                        name="confirmPassword"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Confirm Password</FormLabel>
-                                <FormControl>
-                                    <Input
-                                    {...field}
-                                    disabled={isPending}
-                                    placeholder="******"
-                                    type="password"
-                                    />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                        />
-                    </div>
-                    <FormError message={error} />
-                    <FormSuccess message={success} />
-                    <Button
-                        disabled={isPending}
-                        type="submit"
-                        className="w-full">
-                        Create an account
-                    </Button>
-
-                </form>
-            </Form>
-        </CardWrapper>
+        <Form {...form}>
+            <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6">
+                <div className="space-y-4">
+                    <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                                <Input
+                                {...field}
+                                disabled={isPending}
+                                placeholder="email@example.com"
+                                type="email"
+                                />
+                            </FormControl>
+                            <FormMessage/>
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Company Name</FormLabel>
+                            <FormControl>
+                                <Input
+                                {...field}
+                                disabled={isPending}
+                                placeholder="username"
+                                />
+                            </FormControl>
+                            <FormMessage/>
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Password</FormLabel>
+                            <FormControl>
+                                <Input
+                                {...field}
+                                disabled={isPending}
+                                placeholder="******"
+                                type="password"
+                                />
+                            </FormControl>
+                            <FormMessage/>
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={form.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Confirm Password</FormLabel>
+                            <FormControl>
+                                <Input
+                                {...field}
+                                disabled={isPending}
+                                placeholder="******"
+                                type="password"
+                                />
+                            </FormControl>
+                            <FormMessage/>
+                        </FormItem>
+                    )}
+                    />
+                </div>
+                <FormError message={error} />
+                <FormSuccess message={success} />
+                <Button
+                    disabled={isPending}
+                    type="submit"
+                    className="w-full">
+                    Create an account
+                </Button>
+            </form>
+        </Form>
     )
 }
