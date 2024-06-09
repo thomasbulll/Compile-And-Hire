@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { BusinessRegisterForm } from '@/components/auth/business-register-form';
 
-export default function StudentRegisterPage() {
+export default function BusinessRegisterPage() {
   return (
     <div className="main flex justify-center items-center xl:flex-row flex-col gap-5">
       <div className="overflow-hidden rounded-[0.5rem] border bg-background shadow w-[1500px] pt-30">
