@@ -5,6 +5,7 @@ import Image from 'next/image';
 import CustomButton from './CustomButton';
 import Link from "next/link";
 import { LoginButton } from './auth/login-button';
+import { Button } from '@/components/ui/button';
 
 const Hero = () => {
     const handleScroll = () => {
@@ -21,20 +22,18 @@ const Hero = () => {
                 Discover opportunitues, build projects, and launch your career.
             </p>
             <div className="flex space-x-2">
-            <Link href={"/auth/login"}>
-                <CustomButton
-                title="Sign in"
-                containerStyles="bg-gray-100 text-black rounded-full mt-10 hover:bg-gray-200"
-                handleClick={handleScroll}
-                />
-            </Link>
-            <Link href={"/auth/choose-register-type"}>
-                <CustomButton
-                    title="Sign Up"
-                    containerStyles="bg-blue-600 text-white rounded-full mt-10 hover:bg-blue-700"
-                    handleClick={handleScroll}
-                />
-            </Link>
+                <div className="pr-5">
+                <Button variant={"heroSecondary"} size={"hero"}>
+                    <Link href="/" className=" px-5 py-3 font-bold rounded-md">
+                        Sign In!
+                    </Link>
+                </Button>
+                </div>
+                <Button variant={"heroPrimary"} size={"hero"}>
+                    <Link href="/" className=" px-4 py-2 font-bold rounded-md">
+                        Sign Up!
+                    </Link>
+                </Button>
             </div>
         </div>
         <div className='xl:flex-[1.5] flex justify-end items-end w-full xl:h-screen'>

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const WhyUsPage = () => {
@@ -59,9 +60,11 @@ const WhyUsPage = () => {
                     <p className="mt-2">Join Compile & Hire today and unlock the potential of the future workforce!</p>
                 </div>
                 <div className="text-center flex items-center justify-center pt-5">
-                    <Link href="/" className=" px-4 py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-700">
-                        Join Compile & Hire Today!
-                    </Link>
+                    <Button>
+                        <Link href="/" className=" px-4 py-2 font-bold rounded-md">
+                            Join Compile & Hire Today!
+                        </Link>
+                    </Button>
                 </div >
             </section>
         </div>
