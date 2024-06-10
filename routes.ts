@@ -3,6 +3,8 @@
  */
 export const publicRoutes = [
     "/",
+    "/why-us",
+    "/about",
     "/auth/new-verification"
 ]
 
