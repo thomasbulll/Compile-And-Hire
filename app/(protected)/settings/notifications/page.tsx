@@ -28,6 +28,12 @@ export default function SettingsNotificationsPage() {
           Configure how you receive notifications.
         </p>
       </div>
+      <Separator/>
+      <div className="pt-">
+        <strong className="text-lg text-destructive">
+          Unable to change notifications currently.
+        </strong>
+      </div>
       <Separator />
         <Form {...form}>
             <form onSubmit={() => {
@@ -43,6 +49,7 @@ export default function SettingsNotificationsPage() {
                         <RadioGroup
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        disabled
                         className="flex flex-col space-y-1"
                         >
                         <FormItem className="flex items-center space-x-3 space-y-0">
@@ -92,6 +99,7 @@ export default function SettingsNotificationsPage() {
                         <FormControl>
                             <Switch
                             checked={field.value}
+                            disabled
                             onCheckedChange={field.onChange}
                             />
                         </FormControl>
@@ -114,6 +122,7 @@ export default function SettingsNotificationsPage() {
                         <FormControl>
                             <Switch
                             checked={field.value}
+                            disabled
                             onCheckedChange={field.onChange}
                             />
                         </FormControl>
@@ -134,6 +143,7 @@ export default function SettingsNotificationsPage() {
                         <FormControl>
                             <Switch
                             checked={field.value}
+                            disabled
                             onCheckedChange={field.onChange}
                             />
                         </FormControl>
@@ -172,6 +182,7 @@ export default function SettingsNotificationsPage() {
                     <FormControl>
                         <Checkbox
                         checked={field.value}
+                        disabled
                         onCheckedChange={field.onChange}
                         />
                     </FormControl>
@@ -187,7 +198,12 @@ export default function SettingsNotificationsPage() {
                     </FormItem>
                 )}
                 />
-                <Button type="submit">Update notifications</Button>
+                <Button 
+                type="submit"
+                disabled
+                >
+                    Update notifications
+                </Button>
             </form>
         </Form>
     </div>
