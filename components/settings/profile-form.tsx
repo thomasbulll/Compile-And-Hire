@@ -69,6 +69,19 @@ const onSubmit = (values: zod.infer<typeof SettingsSchema>) => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                  <FormLabel>Company Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Username" {...field} />
+                  </FormControl>
+                  <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
               control={form.control}
               name="bio"
               render={({ field }) => (

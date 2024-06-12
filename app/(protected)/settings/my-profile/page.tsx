@@ -1,5 +1,12 @@
 import { currentUser } from "@/lib/auth";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+    Avatar,
+    AvatarImage,
+    AvatarFallback
+} from "@/components/ui/avatar";
+import { FaUser } from "react-icons/fa";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 const ProfilePage = async () => {
     const user = await currentUser();
@@ -11,19 +18,31 @@ const ProfilePage = async () => {
     const hasUrl = user?.urls != undefined;
 
     return (
-        <div className="main pt-36 flex justify-center items-center xl:flex-row flex-col gap-5">
+        <div className="main flex justify-center items-center xl:flex-row flex-col gap-5">
             {isBusiness ? (
-                <div className="flex flex-col items-center space-y-4">
-                <div className="text-xl font-bold">{user.name}</div>
-                <div className="text-gray-500">{user.bio}</div>
+                <div className="flex flex-col space-y-4 w-[800px]">
+                <div className="flex items-center">
+                    <div className="pr-5">
+                        <Avatar className="w-24 h-24 rounded-full shadow-md">
+                            <AvatarImage src={user?.image || ""} />
+                            <AvatarFallback>
+                                <FaUser />
+                            </AvatarFallback>
+                        </Avatar>
+                    </div>
+                    <p className="ml-4 text-xl font-bold items-center">{user.name}</p>
+                </div>
                 {hasUrl && (
-                  <div className="flex items-center space-x-2">
-                    <span className="text-blue-500 hover:underline">Company Website</span>
-                    <a href={user.urls} className="text-gray-500 hover:text-blue-500">
-                      {user.urls}
-                    </a>
+                  <div className="flex space-x-2 float-left">
+                    <Link href={user.urls}>
+                        {user.urls}
+                    </Link>
+
                   </div>
                 )}
+                <Separator />
+                <div className="text-gray-500">{user.bio}</div>
+                
               </div>
             ) : (
             <div>
