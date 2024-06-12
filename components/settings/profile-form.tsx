@@ -22,7 +22,7 @@ import { SettingsSchema } from "@/schemas"
 import { useCurrentUser } from "@/hooks/use-current-user"
 import { Switch } from "../ui/switch";
 import { useState, useTransition } from "react";
-import { StudentSettings } from "@/actions/settings";
+import { UpdateSettings } from "@/actions/settings";
 
 export const ProfileForm = () => {
     
@@ -37,37 +37,27 @@ const [error, setError] = useState<string | undefined>("");
         name: currentUser?.name || undefined,
         isTwoFactorEnabled: currentUser?.isTwoFactorEnabled || undefined,
         bio: currentUser?.bio || undefined,
-        url: currentUser?.urls
+        urls: currentUser?.urls || undefined
     }
 })
 
 const isStudent = currentUser?.role == "USER";
-    const businessForm = useForm<zod.infer<typeof SettingsSchema>>({
-      resolver: zodResolver(SettingsSchema),
-      defaultValues: {
-          name: currentUser?.name || undefined,
-          isTwoFactorEnabled: currentUser?.isTwoFactorEnabled || undefined,
-          bio: currentUser?.bio || undefined,
-          url: currentUser?.urls || undefined
-      }
-  })
 
-  const onSubmit = (values: zod.infer<typeof SettingsSchema>) => {
-      startTransition(() => {
-        StudentSettings(values)
-        .then((data) => {
-            if (data.success) {
-                toast({
-                    title: "You submitted the following values:",
-                    description: (
-                      <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                        <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-                      </pre>
-                    ),
-                })
-            }
+const onSubmit = (values: zod.infer<typeof SettingsSchema>) => {
+    startTransition(() => {
+      UpdateSettings(values)
+      .then((data) => {
+          if (data.success) {
+              toast({
+                  title: "You submitted the following values:",
+                  description: (
+                    <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                      <code className="text-white">{JSON.stringify(values, null, 2)}</code>
+                    </pre>
+                  ),
+              })
+          }
         }).catch((error) => {
-            console.log(error)
             setError("Something went wrong!");
         })
     }) 
@@ -76,10 +66,10 @@ const isStudent = currentUser?.role == "USER";
   return (
     <div>
       {!isStudent ? (
-        <Form {...businessForm}>
-          <form onSubmit={businessForm.handleSubmit(onSubmit)} className="space-y-8">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
-              control={businessForm.control}
+              control={form.control}
               name="bio"
               render={({ field }) => (
                 <FormItem>
@@ -95,8 +85,8 @@ const isStudent = currentUser?.role == "USER";
               )}
             />
             <FormField
-              control={businessForm.control}
-              name="url"
+              control={form.control}
+              name="urls"
               render={({ field }) => (
                 <FormItem>
                 <FormLabel>Company Website</FormLabel>
@@ -108,7 +98,7 @@ const isStudent = currentUser?.role == "USER";
               )}
             />
             <FormField
-              control={businessForm.control}
+              control={form.control}
               name="isTwoFactorEnabled"
               render={({ field }) => {
                   return <FormItem
@@ -217,7 +207,7 @@ const isStudent = currentUser?.role == "USER";
               />
               <FormField
                   control={form.control}
-                  name="url"
+                  name="urls"
                   render={({ field }) => (
                     <FormItem>
                     <FormLabel>Linked Website</FormLabel>

@@ -2,19 +2,34 @@ import { Metadata } from "next"
 
 import { Separator } from "@/components/ui/separator";
 import { SidebarNav } from "@/components/settings/sidebar-nav";
-import { 
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader
- } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
+// import { useCurrentUser } from "@/hooks/use-current-user"
 
 export const metadata: Metadata = {
   title: "Forms",
   description: "Advanced form example using react-hook-form and Zod.",
 }
 
-const sidebarNavItems = [
+// const currentUser = useCurrentUser();
+
+// const isStudent = currentUser?.role == "USER";
+
+// const businessSidebarNavItems = [
+//   {
+//     title: "Profile",
+//     href: "/settings/business-profile",
+//   },
+//   {
+//     title: "Appearance",
+//     href: "/settings/my-profile",
+//   },
+//   {
+//     title: "Notifications"  ,
+//     href: "/settings/notifications",
+//   },
+// ]
+
+const studentSidebarNavItems = [
   {
     title: "Profile",
     href: "/settings/student-profile",
@@ -47,7 +62,11 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
                 <Separator className="my-6" />
                 <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
                 <aside className="-mx-4 lg:w-1/5">
-                    <SidebarNav items={sidebarNavItems} />
+                    {/* {isStudent ? (
+                        <SidebarNav items={studentSidebarNavItems} />
+                    ): ( */}
+                        <SidebarNav items={studentSidebarNavItems} />
+                    {/* )} */}
                 </aside>
                 <div className="flex-1 lg:max-w-2xl">{children}</div>
                 </div>

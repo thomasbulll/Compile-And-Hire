@@ -43,7 +43,7 @@ export const SettingsSchema = zod.object({
     name: zod.optional(zod.string()),
     isTwoFactorEnabled: zod.optional(zod.boolean()),
     bio: zod.optional(zod.string().max(160).min(4)),
-    url: zod.optional(zod.string().url({
+    urls: zod.optional(zod.string().url({
         message: "Please enter a valid URL"
     }))
 });

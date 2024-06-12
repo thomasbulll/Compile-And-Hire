@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 
-export const StudentSettings = async (
+export const UpdateSettings = async (
     values:  zod.infer<typeof SettingsSchema>
 ) => {
 
@@ -15,8 +15,6 @@ export const StudentSettings = async (
     if (!validatedFields.success) {
         return {error: "Invalid fields!"};
     }
-
-    console.log(validatedFields)
 
     const user = await currentUser();
 
